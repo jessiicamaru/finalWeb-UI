@@ -1,0 +1,17 @@
+.layoutContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    gap: 16px;
+}
+
+.mainContainer {
+    flex-grow: 1;
+}
+
+.sider {
+    /*override css*/
+    max-width: 256px !important;
+    width: 256px !important;
+    flex: 1 !important;
+}

@@ -1,0 +1,15 @@
+export const data = [
+    { value: 'BT', name: 'Bình Thuận' },
+    { value: 'DN', name: 'Đà Nẵng' },
+    { value: 'DH', name: 'Đồng Hới' },
+    { value: 'HUE', name: 'Huế' },
+    { value: 'HN', name: 'Hà Nội' },
+    { value: 'ND', name: 'Nam Định' },
+    { value: 'NT', name: 'Nha Trang' },
+    { value: 'PT', name: 'Phan Thiết' },
+    { value: 'QNO', name: 'Quy Nhơn' },
+    { value: 'QNG', name: 'Quảng Ngãi' },
+    { value: 'SG', name: 'Sài Gòn' },
+    { value: 'TH', name: 'Thanh Hóa' },
+    { value: 'VIN', name: 'Vinh' },
+];
