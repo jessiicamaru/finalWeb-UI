@@ -1,0 +1,17 @@
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.col {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.col > span:nth-child(2) {
+    font-size: 13px;
+    font-weight: bold;
+}

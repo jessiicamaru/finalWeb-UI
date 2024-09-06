@@ -1,24 +1,18 @@
 import DefaultLayout from '../../Layouts/DefaultLayout';
 import style from './style.module.css';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
-import { Button, DatePicker, Divider, Form, List, Radio, Select, Space } from 'antd';
-import { useState } from 'react';
+import { Button, DatePicker, Form, Radio, Select, Space } from 'antd';
+import { useEffect, useState } from 'react';
 import { data } from './station';
 import { v4 as uuidv4 } from 'uuid';
 import clsx from 'clsx';
 
 const SearchPage = () => {
-    const datalist = [
-        'Racing car sprays burning fuel into crowd.',
-        'Japanese princess to wed commoner.',
-        'Australian walks 100km after outback crash.',
-        'Man charged over missing wedding girl.',
-        'Los Angeles battles huge wildfires.',
-    ];
     const { RangePicker } = DatePicker;
     const [date, setDate] = useState([]);
     const [station, setStation] = useState('BT');
     const [way, setWay] = useState(1);
+    const [rangePickerState, setRangePickerState] = useState([false, true]);
 
     const onChangePicker = (value, dateString) => {
         let temp = date;
@@ -37,6 +31,14 @@ const SearchPage = () => {
     const onChangeWay = (e) => {
         setWay(e.target.value);
     };
+
+    useEffect(() => {
+        if (way == 1) {
+            setRangePickerState([false, true]);
+        } else if (way == 2) {
+            setRangePickerState([false, false]);
+        }
+    }, [way]);
 
     return (
         <DefaultLayout>
@@ -125,7 +127,7 @@ const SearchPage = () => {
                             },
                         ]}
                     >
-                        <RangePicker onChange={onChangePicker} disabled={[false, true]} />
+                        <RangePicker onChange={onChangePicker} disabled={rangePickerState} />
                     </Form.Item>
 
                     <Form.Item
@@ -142,10 +144,6 @@ const SearchPage = () => {
                         </Space>
                     </Form.Item>
                 </Form>
-                <Space direction="vertical">
-                    <Divider orientation="left">Your cart</Divider>
-                    <List size="small" bordered dataSource={datalist} renderItem={(item) => <List.Item>{item}</List.Item>} />
-                </Space>
             </Content>
             <Footer className="white-background"></Footer>
         </DefaultLayout>

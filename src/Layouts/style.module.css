@@ -9,9 +9,16 @@
     flex-grow: 1;
 }
 
+.siderCart,
 .sider {
     /*override css*/
     max-width: 256px !important;
     width: 256px !important;
+    flex: 1 !important;
+}
+
+.siderCart {
+    max-width: 300px !important;
+    width: 300px !important;
     flex: 1 !important;
 }

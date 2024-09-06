@@ -1,0 +1,33 @@
+.block {
+    width: 50px;
+    height: 50px;
+    min-height: 1px;
+    cursor: pointer;
+    display: inline-block;
+    float: none;
+    text-align: center;
+}
+
+.icon {
+    margin: 0 1px 10px;
+    border-radius: 15%;
+    height: 18px;
+    overflow: visible;
+}
+
+.icon > img {
+    width: 100%;
+}
+
+.icon.available {
+    background-color: #80b5d6;
+}
+
+.icon.unavailable {
+    background-color: #df5327;
+}
+
+.mouseEventNone {
+    cursor: none !important;
+    pointer-events: none !important;
+}
