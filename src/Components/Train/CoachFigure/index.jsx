@@ -2,7 +2,7 @@ import style from './style.module.css';
 import clsx from 'clsx';
 
 // eslint-disable-next-line react/prop-types
-const CoachModel = ({ data, name = '' }) => {
+const CoachFigure = ({ data, name = '' }) => {
     // eslint-disable-next-line react/prop-types
     let { coach, available } = data;
     if (coach == 0) {
@@ -39,4 +39,4 @@ const CoachModel = ({ data, name = '' }) => {
     }
 };
 
-export default CoachModel;
+export default CoachFigure;

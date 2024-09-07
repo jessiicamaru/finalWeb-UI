@@ -1,11 +1,11 @@
-import DefaultLayout from '../../Layouts/DefaultLayout';
+import DefaultLayout from '@/Layouts/DefaultLayout';
 import style from './style.module.css';
-import { Content, Footer, Header } from 'antd/es/layout/layout';
-// import { v4 as uuidv4 } from 'uuid';
+import { Content, Header } from 'antd/es/layout/layout';
 import clsx from 'clsx';
-import TrainModel from './TrainModel';
+import TrainModel from '@/Components/Train/TrainModel';
 import { Space } from 'antd';
-import TrainCoach from './TrainCoach';
+import TrainCoach from '@/Components/Train/TrainCoach';
+import Coach from '@/Components/Train/Coach';
 
 const Booking = () => {
     return (
@@ -14,7 +14,7 @@ const Booking = () => {
                 <h1>Departing direction date 20/09/2024 from... to...</h1>
             </Header>
             <Content className={clsx('white-background', style.container)}>
-                <Space style={{ display: 'flex', justifyContent: 'space-between', margin: '36px 0' }}>
+                <Space style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', margin: '36px 0' }}>
                     <TrainModel />
                     <TrainModel />
                     <TrainModel />
@@ -23,11 +23,23 @@ const Booking = () => {
                     <TrainModel />
                     <TrainModel />
                 </Space>
-                <Space>
-                    <TrainCoach />
-                </Space>
+                <div
+                    style={{
+                        width: '90%',
+                        margin: '24px auto',
+                    }}
+                >
+                    <Space
+                        style={{
+                            width: '100%',
+                        }}
+                    >
+                        <TrainCoach />
+                    </Space>
+                </div>
+
+                <Coach />
             </Content>
-            <Footer className="white-background"></Footer>
         </DefaultLayout>
     );
 };

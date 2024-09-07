@@ -1,0 +1,51 @@
+.container {
+    width: 12.5%;
+    float: left;
+    min-height: 1px;
+    height: 35px;
+    padding: 0 2px;
+    line-height: 30px;
+}
+
+.seat {
+    height: 35px;
+    line-height: 30px;
+    display: flex;
+}
+
+.main {
+    width: 84%;
+    float: left;
+    min-height: 1px;
+    height: 100%;
+    padding: 2px 0 2px 2px;
+    border-radius: 7px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.bar {
+    line-height: 30px;
+    height: 100%;
+    background-color: #948a54;
+    border-radius: 3px;
+    width: 10px;
+}
+
+.main.available {
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+}
+
+.main.unavailable {
+    background-color: #df5327;
+    color: #fff;
+    pointer-events: stroke;
+}
+
+.main.active {
+    background-color: #a6b727;
+    color: #fff;
+    cursor: pointer;
+}

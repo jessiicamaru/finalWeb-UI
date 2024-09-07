@@ -1,4 +1,4 @@
-import CoachModel from './CoachModel';
+import CoachFigure from '../CoachFigure';
 
 const fakeData = {
     name: 'SE8',
@@ -41,19 +41,11 @@ const TrainCoach = () => {
 
     return (
         <div>
-            {/* <CoachModel
-                data={{
-                    coach: 0,
-                    available: false,
-                }}
-                name="SE8"
-            /> */}
-
             {reverseData.map((item, index) => {
                 if (item.coach != 0) {
-                    return <CoachModel key={index + item} data={item} />;
+                    return <CoachFigure key={index + item} data={item} />;
                 } else if (item.coach == 0) {
-                    return <CoachModel key={index + item} data={item} name={fakeData.name} />;
+                    return <CoachFigure key={index + item} data={item} name={fakeData.name} />;
                 }
             })}
         </div>
