@@ -6,15 +6,19 @@ import TrainModel from '@/Components/Train/TrainModel';
 import { Space } from 'antd';
 import TrainCoach from '@/Components/Train/TrainCoach';
 import Coach from '@/Components/Train/Coach';
+import { useLocation } from 'react-router-dom';
 
 const Booking = () => {
+    const location = useLocation();
+    console.log('location', location.state.data);
+
     return (
         <DefaultLayout>
             <Header className="white-background">
                 <h1>Departing direction date 20/09/2024 from... to...</h1>
             </Header>
             <Content className={clsx('white-background', style.container)}>
-                <Space style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', margin: '36px 0' }}>
+                <Space style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', margin: '36px auto' }}>
                     <TrainModel />
                     <TrainModel />
                     <TrainModel />

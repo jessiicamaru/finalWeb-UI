@@ -37,8 +37,6 @@ const fakeData = {
 const reverseData = fakeData.coaches.reverse();
 
 const TrainCoach = () => {
-    console.log(fakeData);
-
     return (
         <div>
             {reverseData.map((item, index) => {

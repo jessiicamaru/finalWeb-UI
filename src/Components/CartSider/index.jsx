@@ -20,6 +20,9 @@ const CartSider = () => {
                 direction="vertical"
                 style={{
                     padding: '24px',
+                    position: 'sticky',
+                    right: '0',
+                    top: '0',
                 }}
             >
                 <Divider orientation="left">Your cart</Divider>

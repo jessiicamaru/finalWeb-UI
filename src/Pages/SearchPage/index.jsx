@@ -5,27 +5,38 @@ import { Button, DatePicker, Form, Radio, Select, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { data } from './station';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
+import axios from 'axios';
 
 const SearchPage = () => {
-    const { RangePicker } = DatePicker;
-    const [date, setDate] = useState([]);
-    const [station, setStation] = useState('BT');
-    const [way, setWay] = useState(1);
-    const [rangePickerState, setRangePickerState] = useState([false, true]);
+    const [date, setDate] = useState({});
+    const [fromStation, setFromStation] = useState(null);
+    const [toStation, setToStation] = useState(null);
+    const [way, setWay] = useState(null);
+    const [returnState, setreturnState] = useState(null);
+    const navigate = useNavigate();
 
-    const onChangePicker = (value, dateString) => {
-        let temp = date;
-        temp.push({
-            value,
-            dateString,
+    const onChangeDeparture = (value, dateString) => {
+        setDate({
+            ...date,
+            departure: dateString,
         });
-        setDate(temp);
-        console.log(date);
     };
 
-    const onChangeStation = (value) => {
-        setStation(value);
+    const onChangeReturn = (value, dateString) => {
+        setDate({
+            ...date,
+            return: dateString,
+        });
+    };
+
+    const onChangeFromStation = (value) => {
+        setFromStation(value);
+    };
+
+    const onChangeToStation = (value) => {
+        setToStation(value);
     };
 
     const onChangeWay = (e) => {
@@ -34,11 +45,35 @@ const SearchPage = () => {
 
     useEffect(() => {
         if (way == 1) {
-            setRangePickerState([false, true]);
+            setreturnState(true);
         } else if (way == 2) {
-            setRangePickerState([false, false]);
+            setreturnState(false);
         }
     }, [way]);
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        let response = await axios.post('http://localhost:4000/api/v1/senddata', {
+            data: {
+                fromStation,
+                toStation,
+                way,
+                date,
+            },
+        });
+
+        console.log(response);
+
+        navigate('/search/booking', { state: { data: response.data } });
+    };
+
+    console.log('station', {
+        fromStation,
+        toStation,
+        way,
+        date,
+    });
 
     return (
         <DefaultLayout>
@@ -48,14 +83,14 @@ const SearchPage = () => {
             <Content className={clsx('white-background', style.container)}>
                 <Form
                     labelCol={{
-                        span: 10,
+                        span: 8,
                     }}
                     wrapperCol={{
                         span: 14,
                     }}
                     layout="horizontal"
                     style={{
-                        maxWidth: 600,
+                        minWidth: '70%',
                     }}
                 >
                     <Form.Item
@@ -68,7 +103,7 @@ const SearchPage = () => {
                             },
                         ]}
                     >
-                        <Select onChange={onChangeStation} value={station}>
+                        <Select onChange={onChangeFromStation} value={fromStation}>
                             {data.map((item) => {
                                 let temp = uuidv4();
                                 return (
@@ -90,7 +125,7 @@ const SearchPage = () => {
                             },
                         ]}
                     >
-                        <Select onChange={onChangeStation} value={station}>
+                        <Select onChange={onChangeToStation} value={toStation}>
                             {data.map((item) => {
                                 let temp = uuidv4();
                                 return (
@@ -127,7 +162,10 @@ const SearchPage = () => {
                             },
                         ]}
                     >
-                        <RangePicker onChange={onChangePicker} disabled={rangePickerState} />
+                        <Space>
+                            <DatePicker onChange={onChangeDeparture} />
+                            <DatePicker onChange={onChangeReturn} disabled={returnState} />
+                        </Space>
                     </Form.Item>
 
                     <Form.Item
@@ -138,7 +176,7 @@ const SearchPage = () => {
                         }}
                     >
                         <Space>
-                            <Button type="primary" size="large">
+                            <Button type="primary" size="large" onClick={onSubmit}>
                                 Search
                             </Button>
                         </Space>
