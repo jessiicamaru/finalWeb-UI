@@ -3,7 +3,7 @@ import style from './style.module.css';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { Button, DatePicker, Form, Radio, Select, Space } from 'antd';
 import { useEffect, useState } from 'react';
-import { data } from './station';
+import { data } from '@/station';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
@@ -63,17 +63,8 @@ const SearchPage = () => {
             },
         });
 
-        console.log(response);
-
         navigate('/search/booking', { state: { data: response.data } });
     };
-
-    console.log('station', {
-        fromStation,
-        toStation,
-        way,
-        date,
-    });
 
     return (
         <DefaultLayout>

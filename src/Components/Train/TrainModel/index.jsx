@@ -1,6 +1,16 @@
+import { useEffect, useState } from 'react';
 import style from './style.module.css';
 
-const TrainModel = () => {
+// eslint-disable-next-line react/prop-types
+const TrainModel = ({ data }) => {
+    const [trainData, setTrainData] = useState(null);
+
+    useEffect(() => {
+        data && setTrainData(data);
+    }, [data]);
+
+    console.log(trainData);
+
     return (
         <div
             style={{
@@ -24,7 +34,7 @@ const TrainModel = () => {
                     margin: '5px 0',
                 }}
             >
-                SE8
+                {trainData && trainData.trainid}
             </p>
             <div
                 style={{
@@ -37,11 +47,11 @@ const TrainModel = () => {
             >
                 <div className={style.row}>
                     <span>Depart</span>
-                    <span>20/9 00:56</span>
+                    <span>{trainData && trainData.scheduleDepart.Depart}</span>
                 </div>
                 <div className={style.row}>
                     <span>Arrival</span>
-                    <span>20/9 00:56</span>
+                    <span>{trainData && trainData.scheduleArrive.Arrive}</span>
                 </div>
                 <div className={style.row}>
                     <div className={style.col}>
