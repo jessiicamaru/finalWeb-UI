@@ -1,0 +1,12 @@
+.trainContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 36px auto;
+    justify-content: space-evenly;
+}
+
+.div {
+    width: 90%;
+    margin: 24px auto;
+}

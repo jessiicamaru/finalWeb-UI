@@ -16,7 +16,7 @@ const SearchPage = () => {
     const [fromStation, setFromStation] = useState(null);
     const [toStation, setToStation] = useState(null);
     const [way, setWay] = useState(null);
-    const [returnState, setreturnState] = useState(null);
+    const [returnState, setreturnState] = useState(true);
     const [api, contextHolder] = notification.useNotification();
     const navigate = useNavigate();
 
@@ -158,19 +158,19 @@ const SearchPage = () => {
         });
     };
 
-    console.log({
-        fromStation,
-        toStation,
-        way,
-        date,
-    });
+    // console.log({
+    //     fromStation,
+    //     toStation,
+    //     way,
+    //     date,
+    // });
 
     return (
         <>
             {contextHolder}
             <DefaultLayout>
                 <Header className="white-background">
-                    <h1>Search Ticket</h1>
+                    <h1>Search Ticket (pick ngày 18/12 - 20/12)</h1>
                 </Header>
                 <Content className={clsx('white-background', style.container)}>
                     <Form

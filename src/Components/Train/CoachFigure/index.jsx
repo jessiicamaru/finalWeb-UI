@@ -2,7 +2,7 @@ import style from './style.module.css';
 import clsx from 'clsx';
 
 // eslint-disable-next-line react/prop-types
-const CoachFigure = ({ data, name = '' }) => {
+const CoachFigure = ({ data, name = '', active }) => {
     // eslint-disable-next-line react/prop-types
     let { coach, available } = data;
     if (coach == 0) {
@@ -29,6 +29,7 @@ const CoachFigure = ({ data, name = '' }) => {
                     className={clsx(style.icon, {
                         [style.available]: available,
                         [style.unavailable]: !available,
+                        [style.active]: active,
                     })}
                 >
                     <img src="/Train/train.png" alt="head" />

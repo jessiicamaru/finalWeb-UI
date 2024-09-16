@@ -2,7 +2,7 @@ import style from './style.module.css';
 import clsx from 'clsx';
 
 // eslint-disable-next-line react/prop-types
-const SeatFigure = ({ position, available, active }) => {
+const SeatFigure = ({ position, available, active, number }) => {
     return (
         <div className={style.container}>
             <div
@@ -18,7 +18,7 @@ const SeatFigure = ({ position, available, active }) => {
                         [style.active]: active,
                     })}
                 >
-                    33
+                    {number}
                 </div>
                 <div className={style.bar}></div>
             </div>

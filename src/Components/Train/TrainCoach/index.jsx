@@ -1,4 +1,7 @@
+import Coach from '../Coach';
 import CoachFigure from '../CoachFigure';
+
+import { useState, memo } from 'react';
 
 const fakeData = {
     name: 'SE8',
@@ -37,17 +40,39 @@ const fakeData = {
 const reverseData = fakeData.coaches.reverse();
 
 const TrainCoach = () => {
+    const [activeCoach, setActiveCoach] = useState(1);
+
     return (
         <div>
             {reverseData.map((item, index) => {
                 if (item.coach != 0) {
-                    return <CoachFigure key={index + item} data={item} />;
+                    return (
+                        <span
+                            key={index + item}
+                            onClick={() => {
+                                setActiveCoach(index);
+                            }}
+                        >
+                            <CoachFigure data={item} active={activeCoach == index} />
+                        </span>
+                    );
                 } else if (item.coach == 0) {
-                    return <CoachFigure key={index + item} data={item} name={fakeData.name} />;
+                    return (
+                        <span
+                            key={index + item}
+                            onClick={() => {
+                                setActiveCoach(index);
+                            }}
+                        >
+                            <CoachFigure data={item} name={fakeData.name} active={activeCoach == index} />
+                        </span>
+                    );
                 }
             })}
+
+            <Coach />
         </div>
     );
 };
 
-export default TrainCoach;
+export default memo(TrainCoach);

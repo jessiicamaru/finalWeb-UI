@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import style from './style.module.css';
 
 // eslint-disable-next-line react/prop-types
-const TrainModel = ({ data }) => {
+const TrainModel = ({ data, active }) => {
     const [trainData, setTrainData] = useState(null);
 
     useEffect(() => {
@@ -14,37 +14,12 @@ const TrainModel = ({ data }) => {
     return (
         <div
             style={{
-                height: '120px',
-                width: '120px',
-                backgroundColor: '#1676fd',
-                padding: '0 10px',
-                fontSize: '10px',
-                borderRadius: '15px',
-                cursor: 'pointer',
+                backgroundColor: active ? '#1676fd' : '#999',
             }}
+            className={style.container}
         >
-            <p
-                style={{
-                    fontSize: '13px',
-                    fontWeight: 'bold',
-                    padding: '2px 5px',
-                    borderRadius: '5px',
-                    backgroundColor: '#fff',
-                    display: 'inline-block',
-                    margin: '5px 0',
-                }}
-            >
-                {trainData && trainData.trainid}
-            </p>
-            <div
-                style={{
-                    height: '70px',
-                    width: '100%',
-                    backgroundColor: '#fff',
-                    padding: '0 2px',
-                    borderRadius: '5px',
-                }}
-            >
+            <p className={style.trainName}>{trainData && trainData.trainid}</p>
+            <div className={style.trainContainer}>
                 <div className={style.row}>
                     <span>Depart</span>
                     <span>{trainData && trainData.scheduleDepart.Depart}</span>

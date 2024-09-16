@@ -23,6 +23,10 @@
     background-color: #80b5d6;
 }
 
+.icon.active {
+    background-color: #a6b727;
+}
+
 .icon.unavailable {
     background-color: #df5327;
 }
