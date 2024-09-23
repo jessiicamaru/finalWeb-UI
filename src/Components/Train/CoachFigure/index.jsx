@@ -2,9 +2,9 @@ import style from './style.module.css';
 import clsx from 'clsx';
 
 // eslint-disable-next-line react/prop-types
-const CoachFigure = ({ data, name = '', active }) => {
+const CoachFigure = ({ data, name = '', active, available }) => {
     // eslint-disable-next-line react/prop-types
-    let { coach, available } = data;
+    let { coach } = data;
     if (coach == 0) {
         return (
             <div

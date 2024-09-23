@@ -9,7 +9,7 @@ const TrainModel = ({ data, active }) => {
         data && setTrainData(data);
     }, [data]);
 
-    console.log(trainData);
+    // console.log(trainData);
 
     return (
         <div

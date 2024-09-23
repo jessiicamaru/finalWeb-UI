@@ -1,50 +1,64 @@
+/* eslint-disable react/prop-types */
 import Coach from '../Coach';
 import CoachFigure from '../CoachFigure';
 
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 
 const fakeData = {
     name: 'SE8',
     coaches: [
         {
             coach: 0,
-            available: false,
         },
         {
             coach: 1,
-            available: true,
         },
         {
             coach: 2,
-            available: false,
         },
         {
             coach: 3,
-            available: true,
         },
         {
             coach: 4,
-            available: false,
         },
         {
             coach: 5,
-            available: true,
         },
         {
             coach: 6,
-            available: false,
         },
     ],
 };
 
-const reverseData = fakeData.coaches.reverse();
-
-const TrainCoach = () => {
+const TrainCoach = ({ data }) => {
     const [activeCoach, setActiveCoach] = useState(1);
+
+    const generate = fakeData.coaches.map((item) => {
+        const isExist = data.coachData.find((coach) => {
+            return coach.Coach == item.coach;
+        });
+
+        if (isExist) {
+            return {
+                coach: item.coach,
+                available: false,
+            };
+        } else {
+            return {
+                coach: item.coach,
+                available: true,
+            };
+        }
+    });
+
+    useEffect(() => {
+        setActiveCoach(1);
+    }, [data]);
 
     return (
         <div>
-            {reverseData.map((item, index) => {
+            {generate.map((item, index) => {
                 if (item.coach != 0) {
                     return (
                         <span
@@ -53,7 +67,7 @@ const TrainCoach = () => {
                                 setActiveCoach(index);
                             }}
                         >
-                            <CoachFigure data={item} active={activeCoach == index} />
+                            <CoachFigure data={item} active={activeCoach == item.coach} available={item.available} />
                         </span>
                     );
                 } else if (item.coach == 0) {
@@ -64,7 +78,7 @@ const TrainCoach = () => {
                                 setActiveCoach(index);
                             }}
                         >
-                            <CoachFigure data={item} name={fakeData.name} active={activeCoach == index} />
+                            <CoachFigure data={item} name={data.name} active={activeCoach == index} />
                         </span>
                     );
                 }
