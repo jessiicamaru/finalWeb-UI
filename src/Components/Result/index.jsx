@@ -7,15 +7,18 @@ import { Space } from 'antd';
 
 import { data } from '@/station';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import axios from '@/config/axios';
 import clsx from 'clsx';
 
 const stationData = data;
 
 const Result = ({ data, index }) => {
+    console.log(data);
     const APIUrl = 'http://localhost:4000/api/v1/searchUnavailableCoachByTrain?';
     const [activeTrain, setActiveTrain] = useState(data.list[0].trainid);
     const [coachData, setCoachData] = useState([]);
+    const navigate = useNavigate();
 
     const { date, fromStation, toStation } = data;
 
@@ -29,12 +32,14 @@ const Result = ({ data, index }) => {
 
     useEffect(() => {
         const fn = async () => {
-            let response = await axios.get(APIUrl + `trainid=${activeTrain}&date=${date.departure}&depart=${fromStation}&arrive=${toStation}`);
+            try {
+                let response = await axios.get(APIUrl + `trainid=${activeTrain}&date=${date.departure}&depart=${fromStation}&arrive=${toStation}`);
 
-            if (response) {
-                setCoachData(response.data.data);
-
-                console.log(response.data.data);
+                if (response) {
+                    setCoachData(response.data.data);
+                }
+            } catch {
+                navigate('/search');
             }
         };
 
@@ -73,6 +78,9 @@ const Result = ({ data, index }) => {
                                 data={{
                                     name: activeTrain,
                                     coachData,
+                                    date: data.date.departure,
+                                    departStation: data.fromStation,
+                                    arriveStation: data.toStation,
                                 }}
                             />
                         </Space>

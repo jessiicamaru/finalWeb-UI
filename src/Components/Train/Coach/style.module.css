@@ -15,10 +15,12 @@
     justify-content: space-between;
 }
 
-.leftSide,
-.rightSide {
+.leftSide {
     width: 45%;
     height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
 }
 
 .side {
@@ -30,9 +32,6 @@
     justify-content: space-between;
 }
 
-.isle {
-    height: 30px;
-}
 .boundary {
     width: 10%;
     display: flex;

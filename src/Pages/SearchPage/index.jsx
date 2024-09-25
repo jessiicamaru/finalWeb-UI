@@ -8,7 +8,7 @@ import validateForm from './validateForm';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
-import axios from 'axios';
+import axios from '@/config/axios';
 
 import { InfoCircleFilled } from '@ant-design/icons';
 

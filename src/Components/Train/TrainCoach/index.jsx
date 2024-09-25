@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import Coach from '../Coach';
 import CoachFigure from '../CoachFigure';
+import { useNavigate } from 'react-router-dom';
 
 import { useState, memo, useEffect } from 'react';
+import axios from '@/config/axios';
 
 const fakeData = {
     name: 'SE8',
@@ -32,7 +34,10 @@ const fakeData = {
 };
 
 const TrainCoach = ({ data }) => {
+    const APIUrl = 'http://localhost:4000/api/v1/searchUnavailableSeatbyCoach?';
     const [activeCoach, setActiveCoach] = useState(1);
+    const [seatData, setSeatData] = useState([]);
+    const navigate = useNavigate();
 
     const generate = fakeData.coaches.map((item) => {
         const isExist = data.coachData.find((coach) => {
@@ -55,6 +60,25 @@ const TrainCoach = ({ data }) => {
     useEffect(() => {
         setActiveCoach(1);
     }, [data]);
+
+    useEffect(() => {
+        const fn = async () => {
+            try {
+                let response = await axios.get(
+                    APIUrl + `trainid=${data.name}&coach=${activeCoach}&date=${data.date}&depart=${data.departStation}&arrive=${data.arriveStation}`
+                );
+
+                if (response) {
+                    setSeatData(response.data.data);
+                }
+            } catch {
+                navigate('/search');
+            }
+        };
+
+        fn();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeCoach]);
 
     return (
         <div>
@@ -84,7 +108,7 @@ const TrainCoach = ({ data }) => {
                 }
             })}
 
-            <Coach />
+            <Coach data={seatData} coach={activeCoach} />
         </div>
     );
 };

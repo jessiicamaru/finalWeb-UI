@@ -80,6 +80,13 @@ const validateForm = (data, openNotification) => {
                 time += 300;
                 flag = false;
             }
+            if (departDate < today) {
+                setTimeout(() => {
+                    openNotification({ message: 'Form is invalid', description: 'Departure day is in past' });
+                }, time);
+                time += 300;
+                flag = false;
+            }
         }
     }
 

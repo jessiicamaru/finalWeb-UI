@@ -46,14 +46,6 @@ const Header = () => {
                 {
                     type: 'divider',
                 },
-                {
-                    key: '6',
-                    label: 'ĐN-ĐH 18-12-2024 Coach 1',
-                },
-                {
-                    key: '7',
-                    label: 'ĐH-ĐN 20-12-2024 Coach 8',
-                },
             ],
         },
     ];

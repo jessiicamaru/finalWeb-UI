@@ -1,23 +1,30 @@
+/* eslint-disable react/prop-types */
 import style from './style.module.css';
 import SeatFigure from '../SeatFigure';
 
-const Coach = () => {
-    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+const Coach = ({ data, coach }) => {
+    const bookedSeats = data.map((seat) => seat.Position);
+    const arr = Array.from({ length: 16 }, (_, i) => i + 1);
+    const isAvailable = (position) => !bookedSeats.includes(position);
+
+    console.log({ data });
+
     return (
         <div className="w100-dp_block">
-            <h2 className={style.title}>Coach number 1</h2>
+            <h2 className={style.title}>Coach number {coach}</h2>
 
             <div className={style.container}>
                 <div className={style.leftSide}>
                     <div className={style.side}>
                         {arr.map((item, index) => {
-                            return <SeatFigure key={item + index} number={index + 1} />;
+                            const position = index + 1;
+                            return <SeatFigure key={position} number={position} available={isAvailable(position)} />;
                         })}
                     </div>
-                    <div className={style.isle}></div>
                     <div className={style.side}>
                         {arr.map((item, index) => {
-                            return <SeatFigure key={item + index} number={index + 17} />;
+                            const position = index + 17;
+                            return <SeatFigure key={position} number={position} available={isAvailable(position)} />;
                         })}
                     </div>
                 </div>
@@ -26,16 +33,17 @@ const Coach = () => {
                     <div className={style.table}></div>
                 </div>
 
-                <div className={style.rightSide}>
+                <div className={style.leftSide}>
                     <div className={style.side}>
                         {arr.map((item, index) => {
-                            return <SeatFigure key={item + index} position number={index + 33} />;
+                            const position = index + 33;
+                            return <SeatFigure key={position} number={position} available={isAvailable(position)} position />;
                         })}
                     </div>
-                    <div className={style.isle}></div>
                     <div className={style.side}>
                         {arr.map((item, index) => {
-                            return <SeatFigure key={item + index} position number={index + 49} />;
+                            const position = index + 49;
+                            return <SeatFigure key={position} number={position} available={isAvailable(position)} position />;
                         })}
                     </div>
                 </div>
