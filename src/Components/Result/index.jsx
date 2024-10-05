@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '@/config/axios';
 import clsx from 'clsx';
+import { useDispatch } from 'react-redux';
+import trainSlice from '../Train/utils/trainSlice';
 
 const stationData = data;
 
@@ -19,6 +21,7 @@ const Result = ({ data, index }) => {
     const [activeTrain, setActiveTrain] = useState(data.list[0].trainid);
     const [coachData, setCoachData] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const { date, fromStation, toStation } = data;
 
@@ -45,8 +48,42 @@ const Result = ({ data, index }) => {
 
         fn();
 
+        if (index == 0) {
+            dispatch(
+                trainSlice.actions.setDepartureDate({
+                    fromStation,
+                    toStation,
+                })
+            );
+        } else {
+            dispatch(
+                trainSlice.actions.setReturnDate({
+                    fromStation: toStation,
+                    toStation: fromStation,
+                })
+            );
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTrain]);
+
+    const handleClick = (id) => {
+        if (index == 0) {
+            dispatch(trainSlice.actions.setDepartureTrain(id));
+        } else {
+            dispatch(trainSlice.actions.setReturnTrain(id));
+        }
+        setActiveTrain(id);
+    };
+
+    useEffect(() => {
+        if (index == 0) {
+            dispatch(trainSlice.actions.setDepartureTrain(activeTrain));
+        } else {
+            dispatch(trainSlice.actions.setReturnTrain(activeTrain));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     if (data)
         return (
@@ -64,7 +101,7 @@ const Result = ({ data, index }) => {
                                 <div
                                     key={train.trainid + index}
                                     onClick={() => {
-                                        setActiveTrain(train.trainid);
+                                        handleClick(train.trainid);
                                     }}
                                 >
                                     <TrainModel data={train} active={activeTrain == train.trainid} />
@@ -81,6 +118,7 @@ const Result = ({ data, index }) => {
                                     date: data.date.departure,
                                     departStation: data.fromStation,
                                     arriveStation: data.toStation,
+                                    index,
                                 }}
                             />
                         </Space>

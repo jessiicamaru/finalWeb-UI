@@ -2,6 +2,8 @@
 import Coach from '../Coach';
 import CoachFigure from '../CoachFigure';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import trainSlice from '../utils/trainSlice';
 
 import { useState, memo, useEffect } from 'react';
 import axios from '@/config/axios';
@@ -38,6 +40,7 @@ const TrainCoach = ({ data }) => {
     const [activeCoach, setActiveCoach] = useState(1);
     const [seatData, setSeatData] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const generate = fakeData.coaches.map((item) => {
         const isExist = data.coachData.find((coach) => {
@@ -56,6 +59,14 @@ const TrainCoach = ({ data }) => {
             };
         }
     });
+
+    const handleClick = (index) => {
+        if (data.index == 0) {
+            dispatch(trainSlice.actions.setDepartureCoach(index));
+        } else {
+            dispatch(trainSlice.actions.setReturnCoach(index));
+        }
+    };
 
     useEffect(() => {
         setActiveCoach(1);
@@ -89,6 +100,7 @@ const TrainCoach = ({ data }) => {
                             key={index + item}
                             onClick={() => {
                                 setActiveCoach(index);
+                                handleClick(index);
                             }}
                         >
                             <CoachFigure data={item} active={activeCoach == item.coach} available={item.available} />
@@ -96,19 +108,14 @@ const TrainCoach = ({ data }) => {
                     );
                 } else if (item.coach == 0) {
                     return (
-                        <span
-                            key={index + item}
-                            onClick={() => {
-                                setActiveCoach(index);
-                            }}
-                        >
+                        <span key={index + item}>
                             <CoachFigure data={item} name={data.name} active={activeCoach == index} />
                         </span>
                     );
                 }
             })}
 
-            <Coach data={seatData} coach={activeCoach} />
+            <Coach data={seatData} coach={activeCoach} index={data.index} />
         </div>
     );
 };

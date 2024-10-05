@@ -1,13 +1,10 @@
 /* eslint-disable react/prop-types */
 import style from './style.module.css';
-import SeatFigure from '../SeatFigure';
+import CoachSide from './CoachSide';
 
-const Coach = ({ data, coach }) => {
+const Coach = ({ data, coach, index }) => {
     const bookedSeats = data.map((seat) => seat.Position);
-    const arr = Array.from({ length: 16 }, (_, i) => i + 1);
     const isAvailable = (position) => !bookedSeats.includes(position);
-
-    console.log({ data });
 
     return (
         <div className="w100-dp_block">
@@ -15,18 +12,8 @@ const Coach = ({ data, coach }) => {
 
             <div className={style.container}>
                 <div className={style.leftSide}>
-                    <div className={style.side}>
-                        {arr.map((item, index) => {
-                            const position = index + 1;
-                            return <SeatFigure key={position} number={position} available={isAvailable(position)} />;
-                        })}
-                    </div>
-                    <div className={style.side}>
-                        {arr.map((item, index) => {
-                            const position = index + 17;
-                            return <SeatFigure key={position} number={position} available={isAvailable(position)} />;
-                        })}
-                    </div>
+                    <CoachSide index={index} isAvailable={isAvailable} step={1} />
+                    <CoachSide index={index} isAvailable={isAvailable} step={17} />
                 </div>
                 <div className={style.boundary}>
                     <div className={style.table}></div>
@@ -34,18 +21,8 @@ const Coach = ({ data, coach }) => {
                 </div>
 
                 <div className={style.leftSide}>
-                    <div className={style.side}>
-                        {arr.map((item, index) => {
-                            const position = index + 33;
-                            return <SeatFigure key={position} number={position} available={isAvailable(position)} position />;
-                        })}
-                    </div>
-                    <div className={style.side}>
-                        {arr.map((item, index) => {
-                            const position = index + 49;
-                            return <SeatFigure key={position} number={position} available={isAvailable(position)} position />;
-                        })}
-                    </div>
+                    <CoachSide index={index} isAvailable={isAvailable} step={33} horizonal />
+                    <CoachSide index={index} isAvailable={isAvailable} step={49} horizonal />
                 </div>
             </div>
         </div>
