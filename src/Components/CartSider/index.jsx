@@ -1,12 +1,11 @@
 import { Divider, List, Space } from 'antd';
+import CartItem from './CartItem';
 
 const CartSider = () => {
     const datalist = [
+        // eslint-disable-next-line react/jsx-key
+        <CartItem />,
         'Racing car sprays burning fuel into crowd.',
-        'Japanese princess to wed commoner.',
-        'Australian walks 100km after outback crash.',
-        'Man charged over missing wedding girl.',
-        'Los Angeles battles huge wildfires.',
     ];
 
     return (
@@ -19,13 +18,16 @@ const CartSider = () => {
             <Space
                 direction="vertical"
                 style={{
-                    padding: '24px',
+                    padding: '12px',
                     position: 'sticky',
                     right: '0',
                     top: '0',
                 }}
             >
-                <Divider orientation="left">Your cart</Divider>
+                <Divider orientation="left">Depart</Divider>
+                <List size="small" bordered dataSource={datalist} renderItem={(item) => <List.Item>{item}</List.Item>} />
+
+                <Divider orientation="left">Return</Divider>
                 <List size="small" bordered dataSource={datalist} renderItem={(item) => <List.Item>{item}</List.Item>} />
             </Space>
         </div>

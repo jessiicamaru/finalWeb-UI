@@ -12,9 +12,9 @@ const Booking = () => {
     const [data, setData] = useState(null);
     const navigate = useNavigate();
 
-    // const value = useSelector((state) => state.train);
+    const value = useSelector((state) => state.train);
 
-    // console.log(value);
+    console.log(value);
 
     try {
         useEffect(() => {
