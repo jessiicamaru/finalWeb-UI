@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '@/config/axios';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
-import trainSlice from '../Train/utils/trainSlice';
+import trainSlice from '@/utils/trainSlice';
 
 const stationData = data;
 
@@ -48,40 +48,54 @@ const Result = ({ data, index }) => {
 
         fn();
 
-        if (index == 0) {
-            dispatch(
-                trainSlice.actions.setDepartureDate({
+        dispatch(
+            trainSlice.actions.setTrainStation({
+                payload: {
                     fromStation,
                     toStation,
-                })
-            );
-        } else {
-            dispatch(
-                trainSlice.actions.setReturnDate({
-                    fromStation: toStation,
-                    toStation: fromStation,
-                })
-            );
-        }
+                },
+                type: index == 0 ? 'departure' : 'return',
+            })
+        );
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTrain]);
 
-    const handleClick = (id) => {
-        if (index == 0) {
-            dispatch(trainSlice.actions.setDepartureTrain(id));
-        } else {
-            dispatch(trainSlice.actions.setReturnTrain(id));
-        }
+    const handleClick = (id, train) => {
+        dispatch(
+            trainSlice.actions.setTrain({
+                payload: id,
+                type: index == 0 ? 'departure' : 'return',
+            })
+        );
+        dispatch(
+            trainSlice.actions.setTrainSchedule({
+                payload: {
+                    depart: train.scheduleDepart.Depart,
+                    arrival: train.scheduleArrive.Arrive,
+                },
+                type: index == 0 ? 'departure' : 'return',
+            })
+        );
         setActiveTrain(id);
     };
 
     useEffect(() => {
-        if (index == 0) {
-            dispatch(trainSlice.actions.setDepartureTrain(activeTrain));
-        } else {
-            dispatch(trainSlice.actions.setReturnTrain(activeTrain));
-        }
+        dispatch(
+            trainSlice.actions.setTrain({
+                payload: activeTrain,
+                type: index == 0 ? 'departure' : 'return',
+            })
+        );
+        dispatch(
+            trainSlice.actions.setTrainSchedule({
+                payload: {
+                    depart: data.list[0].scheduleDepart.Depart,
+                    arrival: data.list[0].scheduleArrive.Arrive,
+                },
+                type: index == 0 ? 'departure' : 'return',
+            })
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -101,7 +115,7 @@ const Result = ({ data, index }) => {
                                 <div
                                     key={train.trainid + index}
                                     onClick={() => {
-                                        handleClick(train.trainid);
+                                        handleClick(train.trainid, train);
                                     }}
                                 >
                                     <TrainModel data={train} active={activeTrain == train.trainid} />

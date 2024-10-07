@@ -11,6 +11,8 @@ import clsx from 'clsx';
 import axios from '@/config/axios';
 
 import { InfoCircleFilled } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import trainSlice from '@/utils/trainSlice';
 
 const SearchPage = () => {
     const [date, setDate] = useState({});
@@ -20,6 +22,8 @@ const SearchPage = () => {
     const [returnState, setreturnState] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const onChangeDeparture = (value, dateString) => {
         setDate({
@@ -99,6 +103,11 @@ const SearchPage = () => {
         });
     };
 
+    useEffect(() => {
+        dispatch(trainSlice.actions.reset({}));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     // console.log({
     //     fromStation,
     //     toStation,
@@ -111,7 +120,7 @@ const SearchPage = () => {
             {contextHolder}
             <DefaultLayout>
                 <Header className="white-background">
-                    <h1>Search Ticket (pick ngày 18/12 - 20/12)</h1>
+                    <h1>Search Ticket</h1>
                 </Header>
                 <Content className={clsx('white-background', style.container)}>
                     <Form

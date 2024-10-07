@@ -5,16 +5,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, memo } from 'react';
 
 import Result from '@/Components/Result';
-import { useSelector } from 'react-redux';
 
 const Booking = () => {
     const location = useLocation();
     const [data, setData] = useState(null);
     const navigate = useNavigate();
-
-    const value = useSelector((state) => state.train);
-
-    console.log(value);
 
     try {
         useEffect(() => {

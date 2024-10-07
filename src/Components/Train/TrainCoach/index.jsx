@@ -3,7 +3,7 @@ import Coach from '../Coach';
 import CoachFigure from '../CoachFigure';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import trainSlice from '../utils/trainSlice';
+import trainSlice from '@/utils/trainSlice';
 
 import { useState, memo, useEffect } from 'react';
 import axios from '@/config/axios';
@@ -61,15 +61,18 @@ const TrainCoach = ({ data }) => {
     });
 
     const handleClick = (index) => {
-        if (data.index == 0) {
-            dispatch(trainSlice.actions.setDepartureCoach(index));
-        } else {
-            dispatch(trainSlice.actions.setReturnCoach(index));
-        }
+        dispatch(
+            trainSlice.actions.setCoach({
+                payload: index,
+                type: data.index == 0 ? 'departure' : 'return',
+            })
+        );
     };
 
     useEffect(() => {
+        handleClick(1);
         setActiveCoach(1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     useEffect(() => {

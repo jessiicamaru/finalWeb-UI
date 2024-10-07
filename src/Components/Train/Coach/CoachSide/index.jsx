@@ -1,9 +1,7 @@
 import style from '../style.module.css';
 import SeatFigure from '@/Components/Train/SeatFigure';
-
 import { useSelector } from 'react-redux';
 import { departureRemainingSelectors, returnRemainingSelectors } from '@/redux/selectors';
-import { useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
 const CoachSide = ({ isAvailable, step, horizonal, index }) => {

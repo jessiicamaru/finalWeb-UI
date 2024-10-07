@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-export const activeDepartureTicketListByTrainByCoach = (state) => {
+const activeDepartureTicketListByTrainByCoach = (state) => {
+    console.log(state);
     return {
         list: state.train.state.departure.list,
         coach: state.train.state.departure.coach,
@@ -9,12 +10,17 @@ export const activeDepartureTicketListByTrainByCoach = (state) => {
 };
 
 export const departureRemainingSelectors = createSelector(activeDepartureTicketListByTrainByCoach, ({ list, coach, train }) => {
-    return list.filter((ticket) => {
+    let temp = list.filter((ticket) => {
         return ticket.coach == coach && ticket.train == train;
     });
+
+    console.log('depart', temp);
+    return temp;
 });
 
-export const activeReturnTicketListByTrainByCoach = (state) => {
+//----------------------------------------------------------------
+
+const activeReturnTicketListByTrainByCoach = (state) => {
     return {
         list: state.train.state.return.list,
         coach: state.train.state.return.coach,
@@ -23,7 +29,26 @@ export const activeReturnTicketListByTrainByCoach = (state) => {
 };
 
 export const returnRemainingSelectors = createSelector(activeReturnTicketListByTrainByCoach, ({ list, coach, train }) => {
-    return list.filter((ticket) => {
+    const temp = list.filter((ticket) => {
         return ticket.coach == coach && ticket.train == train;
     });
+
+    console.log('return', temp);
+    return temp;
+});
+
+//----------------------------------------------------------------
+
+const getList = (state) => {
+    return {
+        departureList: state.train.state.departure.list,
+        returnList: state.train.state.return.list,
+    };
+};
+
+export const getListTicket = createSelector(getList, ({ departureList, returnList }) => {
+    return {
+        departureList,
+        returnList,
+    };
 });
