@@ -15,7 +15,16 @@ const NonCartButtonLayout = ({ children }) => {
                 <Header />
             </Sider>
             <Content>
-                <Layout>{children}</Layout>
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '100%',
+                    }}
+                >
+                    <Layout>{children}</Layout>
+                </div>
             </Content>
             <Sider className={clsx(style.siderCart, 'white-background')}>
                 <CartSider noButton />

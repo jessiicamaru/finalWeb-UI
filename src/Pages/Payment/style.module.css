@@ -1,0 +1,54 @@
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.button {
+    width: 80%;
+    margin-top: 30px;
+    padding: 12px 20px;
+    height: 90px;
+}
+
+.button > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.imgContainer {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgContainer > img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.content > div {
+    width: 100%;
+}
+.content > div,
+.content > div {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+
+.content > div > strong {
+    font-size: 16px;
+}
