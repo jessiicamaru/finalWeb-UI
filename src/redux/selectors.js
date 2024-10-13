@@ -52,3 +52,17 @@ export const getListTicket = createSelector(getList, ({ departureList, returnLis
         returnList,
     };
 });
+
+//----------------------------------------------------------------
+
+const getState = (state) => {
+    return {
+        state: state.train.state,
+    };
+};
+
+export const getWholeState = createSelector(getState, ({ state }) => {
+    return {
+        state,
+    };
+});

@@ -13,6 +13,7 @@ import axios from '@/config/axios';
 import { InfoCircleFilled } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import trainSlice from '@/utils/trainSlice';
+import dayjs from 'dayjs';
 
 const SearchPage = () => {
     const [date, setDate] = useState({});
@@ -24,6 +25,10 @@ const SearchPage = () => {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
+    const today = new Date();
+    const dateFormat = 'YYYY-MM-DD';
+    const formattedDate = today.toISOString().split('T')[0];
 
     const onChangeDeparture = (value, dateString) => {
         setDate({
@@ -205,8 +210,8 @@ const SearchPage = () => {
                             ]}
                         >
                             <Space>
-                                <DatePicker onChange={onChangeDeparture} />
-                                <DatePicker onChange={onChangeReturn} disabled={returnState} />
+                                <DatePicker onChange={onChangeDeparture} minDate={dayjs(formattedDate, dateFormat)} placement="topLeft" />
+                                <DatePicker onChange={onChangeReturn} disabled={returnState} minDate={dayjs(formattedDate, dateFormat)} />
                             </Space>
                         </Form.Item>
 

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 const CoachFigure = ({ data, name = '', active, available }) => {
     // eslint-disable-next-line react/prop-types
     let { coach } = data;
-    if (coach == 0) {
+    if (coach === 0) {
         return (
             <div
                 className={clsx(style.block, {

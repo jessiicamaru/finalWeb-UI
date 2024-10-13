@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import trainSlice from '@/utils/trainSlice';
-import { useEffect, useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
 const SeatFigure = ({ position, available, number, index, isActive }) => {

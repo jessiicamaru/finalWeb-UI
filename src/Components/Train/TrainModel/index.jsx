@@ -21,22 +21,44 @@ const TrainModel = ({ data, active }) => {
             <p className={style.trainName}>{trainData && trainData.trainid}</p>
             <div className={style.trainContainer}>
                 <div className={style.row}>
-                    <span>Depart</span>
+                    <b>Depart</b>
                     <span>{trainData && trainData.scheduleDepart.Depart}</span>
                 </div>
                 <div className={style.row}>
-                    <span>Arrival</span>
+                    <b>Arrival</b>
                     <span>{trainData && trainData.scheduleArrive.Arrive}</span>
                 </div>
-                <div className={style.row}>
-                    <div className={style.col}>
-                        <span>Ordered</span>
-                        <span>0</span>
-                    </div>
-                    <div className={style.col}>
-                        <span>Available</span>
-                        <span>23</span>
-                    </div>
+                <div
+                    className={style.row}
+                    style={{
+                        justifyContent: 'center',
+                        flexWrap: 'wrap',
+                    }}
+                >
+                    <div
+                        style={{
+                            marginTop: '8px',
+                            width: '80%',
+                            padding: '1px',
+                            backgroundColor: '#ccc',
+                        }}
+                    ></div>
+                    <div
+                        style={{
+                            width: '80%',
+                            padding: '1px',
+                            backgroundColor: '#ccc',
+                        }}
+                    ></div>
+                    <div
+                        style={{
+                            marginTop: '8px',
+                            width: '80%',
+                            padding: '1px',
+                            backgroundColor: '#000',
+                            border: '1px solid rgb(109 108 108)',
+                        }}
+                    ></div>
                 </div>
             </div>
         </div>
