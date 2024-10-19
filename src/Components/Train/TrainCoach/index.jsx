@@ -92,7 +92,7 @@ const TrainCoach = ({ data }) => {
 
         fn();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeCoach]);
+    }, [activeCoach, data.name]);
 
     return (
         <div>

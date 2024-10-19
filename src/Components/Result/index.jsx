@@ -16,7 +16,6 @@ import trainSlice from '@/utils/trainSlice';
 const stationData = data;
 
 const Result = ({ data, index }) => {
-    console.log(data);
     const APIUrl = 'http://localhost:4000/api/v1/searchUnavailableCoachByTrain?';
     const [activeTrain, setActiveTrain] = useState(data.list[0].trainid);
     const [coachData, setCoachData] = useState([]);

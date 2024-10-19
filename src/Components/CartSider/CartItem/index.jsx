@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import trainSlice from '@/utils/trainSlice';
 import { formatCurrency } from '@/utils/formatCurrency';
 
-const CartItem = ({ data, index }) => {
+const CartItem = ({ data, index, nonEvent }) => {
     const { bookingDate, coach, seat, train, fromStation, toStation, depart, arrival, cost } = data;
 
     const formatedDepart = depart.slice(0, -3);
@@ -38,6 +38,9 @@ const CartItem = ({ data, index }) => {
         <div
             style={{
                 width: '100%',
+                border: nonEvent && '1px solid #1677ff',
+                padding: nonEvent && '12px',
+                borderRadius: nonEvent && '15px',
             }}
         >
             <div
@@ -57,7 +60,11 @@ const CartItem = ({ data, index }) => {
                         <b>Booking date:</b> <span>{bookingDate}</span>
                     </div>
                 </div>
-                <div>
+                <div
+                    style={{
+                        display: nonEvent ? 'none' : 'block',
+                    }}
+                >
                     <button
                         style={{
                             fontSize: '16px',

@@ -2,7 +2,7 @@ import style from './style.module.css';
 
 import NonCartButtonLayout from '@/Layouts/NonCartButtonLayout';
 import { useEffect, useState, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, notification } from 'antd';
 
 import validateForm from './validateForm';
@@ -11,9 +11,11 @@ import { CaretRightOutlined, InfoCircleFilled } from '@ant-design/icons';
 import { getListTicket } from '@/redux/selectors';
 import { useSelector } from 'react-redux';
 import axios from '@/config/axios';
+import { transactionIdGenerator } from './transactionIdGenerate';
 
 const Payment = () => {
     const location = useLocation();
+    const navigate = useNavigate();
 
     const [name, setName] = useState(null);
     const [id, setId] = useState(null);
@@ -84,6 +86,8 @@ const Payment = () => {
                 return: returnList,
             });
 
+            let trans_id = transactionIdGenerator(id, phone);
+
             let response = await axios.post('http://localhost:4000/api/v2/zalopay/payment', {
                 data: {
                     name,
@@ -92,11 +96,25 @@ const Payment = () => {
                     email,
                     list: JSON.stringify([...departureList, ...returnList]),
                     amount: totalCost,
+                    trans_id,
                 },
             });
 
             console.log(response.data);
             window.open(response.data.order_url, '_blank');
+            navigate('/search/booking/payment/confirm-payment', {
+                state: {
+                    data: {
+                        trans_id,
+                        amount: totalCost,
+                        name,
+                        phone,
+                        id,
+                        email,
+                        list: [...departureList, ...returnList],
+                    },
+                },
+            });
         }
     };
 
