@@ -96,6 +96,15 @@ const Result = ({ data, index }) => {
                 type: index == 0 ? 'departure' : 'return',
             })
         );
+        dispatch(
+            trainSlice.actions.setTrainDate({
+                payload: {
+                    depart: data.date.departure,
+                    return: data.date.return,
+                },
+                type: index == 0 ? 'departure' : 'return',
+            })
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

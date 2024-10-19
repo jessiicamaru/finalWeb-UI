@@ -25,7 +25,6 @@ const SeatFigure = ({ position, available, number, index, isActive }) => {
                     payload: {
                         id: uuidv4(),
                         seat: number,
-                        bookingDate: formattedDate,
                         cost: checkCost(number),
                     },
                     type: index == 0 ? 'departure' : 'return',

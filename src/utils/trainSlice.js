@@ -9,8 +9,8 @@ export default createSlice({
     name: 'train',
     initialState: {
         state: {
-            departure: { coach: 1, train: '', fromStation: '', toStation: '', depart: '', arrival: '', seat: 0, list: [] },
-            return: { coach: 1, train: '', fromStation: '', toStation: '', depart: '', arrival: '', seat: 0, list: [] },
+            departure: { coach: 1, train: '', fromStation: '', toStation: '', depart: '', arrival: '', seat: 0, list: [], bookingDate: '' },
+            return: { coach: 1, train: '', fromStation: '', toStation: '', depart: '', arrival: '', seat: 0, list: [], bookingDate: '' },
         },
     },
     reducers: {
@@ -52,7 +52,6 @@ export default createSlice({
             }
         },
         setTrainStation: (state, action) => {
-            console.log(action.payload.payload);
             switch (action.payload.type) {
                 case 'departure': {
                     state.state.departure.fromStation = action.payload.payload.fromStation;
@@ -84,17 +83,40 @@ export default createSlice({
                     break;
             }
         },
-        addTicket: (state, action) => {
+        setTrainDate: (state, action) => {
             switch (action.payload.type) {
                 case 'departure': {
-                    const { coach, train, fromStation, toStation, depart, arrival } = state.state.departure;
-                    state.state.departure.list.push({ coach, train, fromStation, toStation, depart, arrival, ...action.payload.payload });
+                    state.state.departure.bookingDate = action.payload.payload.depart;
                     break;
                 }
                 case 'return': {
-                    const { coach, train, fromStation, toStation, depart, arrival } = state.state.return;
+                    state.state.return.bookingDate = action.payload.payload.return;
+                    break;
+                }
+                default:
+                    break;
+            }
+        },
+        addTicket: (state, action) => {
+            switch (action.payload.type) {
+                case 'departure': {
+                    const { coach, train, fromStation, toStation, depart, arrival, bookingDate } = state.state.departure;
+                    state.state.departure.list.push({
+                        coach,
+                        train,
+                        fromStation,
+                        toStation,
+                        depart,
+                        arrival,
+                        bookingDate,
+                        ...action.payload.payload,
+                    });
+                    break;
+                }
+                case 'return': {
+                    const { coach, train, fromStation, toStation, depart, arrival, bookingDate } = state.state.return;
 
-                    state.state.return.list.push({ coach, train, fromStation, toStation, depart, arrival, ...action.payload.payload });
+                    state.state.return.list.push({ coach, train, fromStation, toStation, depart, arrival, bookingDate, ...action.payload.payload });
                     break;
                 }
                 default:
