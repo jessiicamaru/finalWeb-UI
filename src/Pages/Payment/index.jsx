@@ -88,7 +88,7 @@ const Payment = () => {
 
             let trans_id = transactionIdGenerator(id, phone);
 
-            let response = await axios.post('http://localhost:4000/api/v2/zalopay/payment', {
+            let response = await axios.post(import.meta.env.VITE_API_URL_V2 + '/zalopay/payment', {
                 data: {
                     name,
                     id,

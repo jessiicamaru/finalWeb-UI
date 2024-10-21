@@ -14,6 +14,7 @@ import { InfoCircleFilled } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import trainSlice from '@/utils/trainSlice';
 import dayjs from 'dayjs';
+import moment from 'moment';
 
 const SearchPage = () => {
     const [date, setDate] = useState({});
@@ -25,10 +26,6 @@ const SearchPage = () => {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-
-    const today = new Date();
-    const dateFormat = 'YYYY-MM-DD';
-    const formattedDate = today.toISOString().split('T')[0];
 
     const onChangeDeparture = (value, dateString) => {
         setDate({
@@ -78,7 +75,7 @@ const SearchPage = () => {
         );
 
         if (flag) {
-            let response = await axios.post('http://localhost:4000/api/v1/senddata', {
+            let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/senddata', {
                 data: {
                     fromStation,
                     toStation,
@@ -210,8 +207,18 @@ const SearchPage = () => {
                             ]}
                         >
                             <Space>
-                                <DatePicker onChange={onChangeDeparture} minDate={dayjs(formattedDate, dateFormat)} placement="topLeft" />
-                                <DatePicker onChange={onChangeReturn} disabled={returnState} minDate={dayjs(formattedDate, dateFormat)} />
+                                <DatePicker
+                                    onChange={onChangeDeparture}
+                                    minDate={dayjs(moment().format('YYYY-MM-DD'))}
+                                    placement="topLeft"
+                                    showToday={false}
+                                />
+                                <DatePicker
+                                    onChange={onChangeReturn}
+                                    disabled={returnState}
+                                    minDate={dayjs(moment().format('YYYY-MM-DD'))}
+                                    showToday={false}
+                                />
                             </Space>
                         </Form.Item>
 

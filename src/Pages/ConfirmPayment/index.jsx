@@ -9,6 +9,7 @@ import { InfoCircleFilled } from '@ant-design/icons';
 
 import axios from '@/config/axios';
 import CartItem from '@/Components/CartSider/CartItem';
+import sendEmail from './sendEmail';
 
 const ConfirmPayment = () => {
     const location = useLocation();
@@ -24,7 +25,7 @@ const ConfirmPayment = () => {
     const handleCheckOrder = async (id) => {
         try {
             console.log(id);
-            let response = await axios.post('http://localhost:4000/api/v2/zalopay/check-order-status', {
+            let response = await axios.post(import.meta.env.VITE_API_URL_V2 + '/zalopay/check-order-status', {
                 app_trans_id: id,
             });
 
@@ -62,7 +63,31 @@ const ConfirmPayment = () => {
     };
 
     const handleReturn = async () => {
-        let response = await axios.post('http://localhost:4000/api/v1/clearCookie');
+        let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/clearCookie');
+        console.log({
+            name: cusData.name,
+            email: cusData.email,
+            id: cusData.id,
+            phone: cusData.phone,
+            bookingDate: cusData.list[0].bookingDate,
+        });
+        let responseCode = await axios.post(import.meta.env.VITE_API_URL_V1 + '/getBookedTicketId', {
+            data: {
+                name: cusData.name,
+                email: cusData.email,
+                id: cusData.id,
+                phone: cusData.phone,
+                bookingDate: cusData.list[0].bookingDate,
+            },
+        });
+        if (responseCode.data) {
+            // console.log(responseCode.data);
+            sendEmail({
+                name: cusData.name,
+                email: cusData.email,
+                code: responseCode.data.code,
+            });
+        }
         if (response.data.cookie_code == 1) navigate('/search');
     };
 

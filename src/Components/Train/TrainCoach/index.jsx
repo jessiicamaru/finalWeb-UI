@@ -36,7 +36,7 @@ const fakeData = {
 };
 
 const TrainCoach = ({ data }) => {
-    const APIUrl = 'http://localhost:4000/api/v1/searchUnavailableSeatbyCoach?';
+    const APIUrl = import.meta.env.VITE_API_URL_V1 + '/searchUnavailableSeatbyCoach?';
     const [activeCoach, setActiveCoach] = useState(1);
     const [seatData, setSeatData] = useState([]);
     const navigate = useNavigate();

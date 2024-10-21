@@ -47,10 +47,10 @@ const SeatFigure = ({ position, available, number, index, isActive }) => {
 
     return (
         <div
-            className={style.container}
-            onClick={() => {
-                handleClick();
-            }}
+            className={clsx(style.container, {
+                [style.mouseEventNone]: !available,
+            })}
+            onClick={available && handleClick}
         >
             <div
                 className={style.seat}
@@ -62,7 +62,7 @@ const SeatFigure = ({ position, available, number, index, isActive }) => {
                     className={clsx(style.main, {
                         [style.available]: available,
                         [style.unavailable]: !available,
-                        [style.active]: isActive,
+                        [style.active]: isActive && available,
                     })}
                 >
                     {number}

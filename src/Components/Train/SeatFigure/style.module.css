@@ -59,3 +59,8 @@
     color: #fff;
     cursor: pointer;
 }
+
+.mouseEventNone {
+    cursor: default !important;
+    pointer-events: none !important;
+}
