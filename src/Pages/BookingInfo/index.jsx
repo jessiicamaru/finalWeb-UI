@@ -1,36 +1,39 @@
-import style from './style.module.css';
 import { Form, Input, Button } from 'antd';
 import NonCartSiderLayout from '@/Layouts/NonCartSiderLayout';
 import { useState } from 'react';
+import axios from '@/config/axios';
+import CartItem from '@/Components/CartSider/CartItem';
+import { checkCost } from '@/utils/checkCost';
 
 const BookingInfo = () => {
     const [bookingCode, setBookingCode] = useState(null);
     const [phone, setPhone] = useState(null);
     const [email, setEmail] = useState(null);
+    const [list, setList] = useState(null);
 
-    const onSubmit = () => {};
+    const getTicket = async () => {
+        let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/getTicket', {
+            data: {
+                bookingCode,
+                phone,
+                email,
+            },
+        });
+
+        console.log(response.data.list);
+        response.data.list && setList(response.data.list);
+    };
+    const reSendCode = () => {};
 
     return (
         <>
             <NonCartSiderLayout>
-                <div
-                    style={{
-                        padding: '0 50px',
-                        marginTop: '24px',
-                    }}
-                    className="white-background"
-                >
-                    <h2>Enter your booking code, email and phone number to track your booking status</h2>
-                    <h3
-                        style={{
-                            marginTop: '24px',
-                        }}
-                    >
-                        To look up the reservation, please enter 3 following items exactly :
-                    </h3>
+                <div className="bg-white px-[50px] mt-6">
+                    <h2 className="text-2xl font-bold">Enter your booking code, email and phone number to track your booking status</h2>
+                    <h3 className="mt-6 text-xl font-bold">To look up the reservation, please enter 3 following items exactly :</h3>
                 </div>
 
-                <div className={style.formContainer}>
+                <div className="bg-white flex px-[50px] py-6 items-center justify-center">
                     <Form
                         labelCol={{
                             span: 6,
@@ -39,9 +42,7 @@ const BookingInfo = () => {
                             span: 12,
                         }}
                         layout="horizontal"
-                        style={{
-                            minWidth: '80%',
-                        }}
+                        className="min-w-[80%]"
                     >
                         <Form.Item
                             label="Booking Code"
@@ -91,15 +92,36 @@ const BookingInfo = () => {
                             <Input value={email} placeholder="Email when booking" />
                         </Form.Item>
 
-                        <div className={style.buttonContainer}>
-                            <Button type="primary" size="large" onClick={onSubmit}>
+                        <div className="flex items-center justify-center flex-wrap gap-4">
+                            <Button type="primary" size="large" onClick={getTicket}>
                                 Search
                             </Button>
-                            <Button type="default" size="large" onClick={onSubmit}>
+                            <Button type="default" size="large" onClick={reSendCode}>
                                 Forgot your booking code?
                             </Button>
                         </div>
                     </Form>
+                </div>
+                <div className="mt-6 w-full flex items-center justify-center">
+                    {list &&
+                        list.map((item) => {
+                            let data = {
+                                bookingDate: item.BookingDate.split('T')[0],
+                                coach: item.Coach,
+                                seat: item.Position,
+                                train: item.TrainID,
+                                fromStation: item.DepartStation,
+                                toStation: item.ArriveStation,
+                                depart: item.Depart,
+                                arrival: item.Arrive,
+                                cost: checkCost(item.Position),
+                            };
+                            return (
+                                <div key={item.id} className="w-1/2">
+                                    <CartItem data={data} nonEvent />
+                                </div>
+                            );
+                        })}
                 </div>
             </NonCartSiderLayout>
         </>

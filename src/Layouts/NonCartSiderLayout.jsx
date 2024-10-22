@@ -1,27 +1,19 @@
-import style from './style.module.css';
 import Header from '@/Components/Header';
 import { Layout } from 'antd';
 import { Content } from 'antd/es/layout/layout';
 
 import Sider from 'antd/es/layout/Sider';
-import clsx from 'clsx';
 
 // eslint-disable-next-line react/prop-types
 const NonCartSiderLayout = ({ children }) => {
     return (
-        <Layout className={clsx(style.layoutContainer, 'white-background')}>
-            <Sider className={clsx(style.sider, 'white-background')}>
+        <Layout className="bg-white w-full min-h-screen flex gap-4">
+            <Sider className="bg-white !max-w-64 !w-64 !flex-auto">
                 <Header />
             </Sider>
             <Content>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        height: '100%',
-                    }}
-                >
-                    <Layout className="white-background">{children}</Layout>
+                <div className="flex justify-center h-full">
+                    <Layout className="!bg-white">{children}</Layout>
                 </div>
             </Content>
         </Layout>

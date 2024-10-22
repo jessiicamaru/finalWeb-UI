@@ -1,4 +1,3 @@
-import style from '../style.module.css';
 import SeatFigure from '@/Components/Train/SeatFigure';
 import { useSelector } from 'react-redux';
 import { departureRemainingSelectors, returnRemainingSelectors } from '@/redux/selectors';
@@ -17,7 +16,7 @@ const CoachSide = ({ isAvailable, step, horizonal, index }) => {
     };
 
     return (
-        <div className={style.side}>
+        <div className="w-full h-[45%] flex flex-wrap items-center justify-between">
             {arr.map((item, index) => {
                 const position = index + step;
                 return (

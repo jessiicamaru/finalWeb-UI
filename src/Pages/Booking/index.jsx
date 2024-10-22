@@ -1,5 +1,4 @@
 import DefaultLayout from '@/Layouts/DefaultLayout';
-import style from './style.module.css';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState, memo } from 'react';
@@ -33,41 +32,36 @@ const Booking = () => {
                     return <Result key={index} data={way} index={index} />;
                 })}
 
-            <div className={style.container}>
-                <div className={style.row}>
-                    <div className={style.itemUp}>
+            <div className="w-full border-solid border-[1px] border-[#ddd] bg-white">
+                <div className="flex justify-evenly">
+                    <div className="flex gap-[10px] pt-[25px] cursor-auto pointer-events-none">
                         <CoachFigure data={{ coach: '' }} available />
                         <div>Toa còn vé</div>
                     </div>
-                    <div className={style.itemUp}>
+                    <div className="flex gap-[10px] pt-[25px] cursor-auto pointer-events-none">
                         <CoachFigure data={{ coach: '' }} active available />
                         <div>Toa đang chọn</div>
                     </div>
-                    <div className={style.itemUp}>
+                    <div className="flex gap-[10px] pt-[25px] cursor-auto pointer-events-none">
                         <CoachFigure data={{ coach: '' }} />
                         <div>Toa hết vé</div>
                     </div>
                 </div>
-                <div className={style.divider}></div>
-                <div
-                    className={style.row}
-                    style={{
-                        paddingBottom: '25px',
-                    }}
-                >
-                    <div className={style.item}>
+                <div className="w-4/5 bg-[#ddd] h-[1px] ml-[10%] mr-[10%]"></div>
+                <div className="flex justify-evenly pb-[25px]">
+                    <div className="flex gap-[10px] pt-[25px]">
                         <div>
                             <BareSeatFigure available />
                         </div>
                         <div>Chỗ còn vé</div>
                     </div>
-                    <div className={style.item}>
+                    <div className="flex gap-[10px] pt-[25px]">
                         <div>
                             <BareSeatFigure available isActive />
                         </div>
                         <div>Chỗ đang chọn</div>
                     </div>
-                    <div className={style.item}>
+                    <div className="flex gap-[10px] pt-[25px]">
                         <div>
                             <BareSeatFigure />
                         </div>
@@ -75,12 +69,7 @@ const Booking = () => {
                     </div>
                 </div>
             </div>
-            <div
-                style={{
-                    padding: '25px',
-                    backgroundColor: 'white',
-                }}
-            ></div>
+            <div className="p-[25px] bg-white"></div>
         </DefaultLayout>
     );
 };

@@ -1,5 +1,3 @@
-import style from './style.module.css';
-
 import NonCartButtonLayout from '@/Layouts/NonCartButtonLayout';
 import { useEffect, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -126,24 +124,11 @@ const Payment = () => {
         <>
             {contextHolder}
             <NonCartButtonLayout>
-                <div
-                    className="white-background"
-                    style={{
-                        width: '100%',
-                        padding: '24px',
-                    }}
-                >
+                <div className="bg-white w-full p-6">
                     <div>
-                        <h1
-                            style={{
-                                width: '100%',
-                                textAlign: 'center',
-                            }}
-                        >
-                            Choose payment method
-                        </h1>
+                        <h1 className="text-2xl w-full text-center font-bold">Choose payment method</h1>
 
-                        <div className={style.formContainer}>
+                        <div className="flex items-center justify-center mt-6">
                             <Form
                                 labelCol={{
                                     span: 5,
@@ -152,9 +137,7 @@ const Payment = () => {
                                     span: 12,
                                 }}
                                 layout="horizontal"
-                                style={{
-                                    minWidth: '80%',
-                                }}
+                                className="min-w-[80%]"
                             >
                                 <Form.Item
                                     label="Name"
@@ -234,17 +217,17 @@ const Payment = () => {
                             </Form>
                         </div>
 
-                        <div className={style.buttonContainer}>
-                            <Button className={style.button} onClick={onSubmit}>
-                                <div>
-                                    <div className={style.imgContainer}>
-                                        <img src="/payment/zalopay.png" alt="" />
+                        <div className="flex items-center justify-center flex-wrap">
+                            <Button className="w-4/5 mt-[30px] px-5 py-3 h-[90px]" onClick={onSubmit}>
+                                <div className="w-full flex items-center gap-[10px]">
+                                    <div className="w-[10%] flex items-center justify-center">
+                                        <img className="w-100% object-contain" src="/payment/zalopay.png" alt="" />
                                     </div>
-                                    <div className={style.content}>
-                                        <div>
-                                            <strong>Open ZaloPay</strong>
+                                    <div className="flex flex-wrap w-4/5 h-full items-center justify-center">
+                                        <div className="w-full flex justify-start">
+                                            <strong className="text-[16px]">Open ZaloPay</strong>
                                         </div>
-                                        <div>
+                                        <div className="w-full flex justify-start">
                                             <span>Scan QR code to pay</span>
                                         </div>
                                     </div>
@@ -252,16 +235,16 @@ const Payment = () => {
                                 </div>
                             </Button>
 
-                            <Button className={style.button} disabled>
-                                <div>
-                                    <div className={style.imgContainer}>
-                                        <img src="/payment/momo.png" alt="" />
+                            <Button className="w-4/5 mt-[30px] px-5 py-3 h-[90px]" disabled>
+                                <div className="w-full flex items-center gap-[10px]">
+                                    <div className="w-[10%] flex items-center justify-center">
+                                        <img className="w-100% object-contain" src="/payment/momo.png" alt="" />
                                     </div>
-                                    <div className={style.content}>
-                                        <div>
-                                            <strong>Open Momo</strong>
+                                    <div className="flex flex-wrap w-4/5 h-full items-center justify-center">
+                                        <div className="w-full flex justify-start">
+                                            <strong className="text-[16px]">Open Momo</strong>
                                         </div>
-                                        <div>
+                                        <div className="w-full flex justify-start">
                                             <span>Scan QR code to pay</span>
                                         </div>
                                     </div>
@@ -269,16 +252,16 @@ const Payment = () => {
                                 </div>
                             </Button>
 
-                            <Button className={style.button} disabled>
-                                <div>
-                                    <div className={style.imgContainer}>
-                                        <img src="/payment/vnpay.png" alt="" />
+                            <Button className="w-4/5 mt-[30px] px-5 py-3 h-[90px]" disabled>
+                                <div className="w-full flex items-center gap-[10px]">
+                                    <div className="w-[10%] flex items-center justify-center">
+                                        <img className="w-100% object-contain" src="/payment/vnpay.png" alt="" />
                                     </div>
-                                    <div className={style.content}>
-                                        <div>
-                                            <strong>Open VNPAY</strong>
+                                    <div className="flex flex-wrap w-4/5 h-full items-center justify-center">
+                                        <div className="w-full flex justify-start">
+                                            <strong className="text-[16px]">Open VNPAY</strong>
                                         </div>
-                                        <div>
+                                        <div className="w-full flex justify-start">
                                             <span>Scan QR code to pay</span>
                                         </div>
                                     </div>
@@ -286,14 +269,14 @@ const Payment = () => {
                                 </div>
                             </Button>
 
-                            <Button className={style.button} disabled>
-                                <div>
-                                    <div className={style.imgContainer}>
-                                        <img src="/payment/visa.png" alt="" />
+                            <Button className="w-4/5 mt-[30px] px-5 py-3 h-[90px]" disabled>
+                                <div className="w-full flex items-center gap-[10px]">
+                                    <div className="w-[10%] flex items-center justify-center">
+                                        <img className="w-100% object-contain" src="/payment/visa.png" alt="" />
                                     </div>
-                                    <div className={style.content}>
-                                        <div>
-                                            <strong>Pay with Visa or Master card</strong>
+                                    <div className="flex flex-wrap w-4/5 h-full items-center justify-center">
+                                        <div className="w-full flex justify-start">
+                                            <strong className="text-[16px] ">Pay with Visa or Master card</strong>
                                         </div>
                                     </div>
                                     <CaretRightOutlined />

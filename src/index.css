@@ -1,3 +1,8 @@
+@import 'tailwindcss/base';
+
+@import 'tailwindcss/components';
+
+@import 'tailwindcss/utilities';
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -37,4 +42,25 @@ html::-webkit-scrollbar-thumb {
 .w100-dp_block {
     width: 100%;
     display: block;
+}
+
+.white-available {
+    background-color: #fff;
+}
+
+.available {
+    background-color: #80b5d6 !important;
+}
+
+.active {
+    background-color: #a6b727 !important;
+}
+
+.unavailable {
+    background-color: #df5327 !important;
+}
+
+.mouseEventNone {
+    cursor: none !important;
+    pointer-events: none !important;
 }

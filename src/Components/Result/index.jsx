@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import style from './style.module.css';
 import TrainModel from '@/Components/Train/TrainModel';
 import TrainCoach from '@/Components/Train/TrainCoach';
 import { Content, Header } from 'antd/es/layout/layout';
@@ -9,7 +8,6 @@ import { data } from '@/station';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '@/config/axios';
-import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import trainSlice from '@/utils/trainSlice';
 
@@ -110,14 +108,14 @@ const Result = ({ data, index }) => {
     if (data)
         return (
             <>
-                <Header className="white-background" key={data.date.departure + data.date.return + index}>
-                    <h2>
+                <Header className="bg-white flex items-center justify-center" key={data.date.departure + data.date.return + index}>
+                    <h2 className="text-xl font-bold">
                         Departing direction date {index == 0 ? data.date.departure : data.date.return} from {findStation(data.fromStation)} to{' '}
                         {findStation(data.toStation)}
                     </h2>
                 </Header>
-                <Content className={clsx('white-background')}>
-                    <Space className={style.trainContainer}>
+                <Content className="bg-white">
+                    <Space className="flex flex-wrap items-center my-[24px] mx-auto">
                         {data.list.map((train, index) => {
                             return (
                                 <div
@@ -131,7 +129,7 @@ const Result = ({ data, index }) => {
                             );
                         })}
                     </Space>
-                    <div className={style.div}>
+                    <div className="w-[90%] my-[24px] mx-auto">
                         <Space className="w100-dp_block">
                             <TrainCoach
                                 data={{

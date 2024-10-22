@@ -1,5 +1,3 @@
-import style from './style.module.css';
-
 import NonCartSiderLayout from '@/Layouts/NonCartSiderLayout';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -64,13 +62,7 @@ const ConfirmPayment = () => {
 
     const handleReturn = async () => {
         let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/clearCookie');
-        console.log({
-            name: cusData.name,
-            email: cusData.email,
-            id: cusData.id,
-            phone: cusData.phone,
-            bookingDate: cusData.list[0].bookingDate,
-        });
+
         let responseCode = await axios.post(import.meta.env.VITE_API_URL_V1 + '/getBookedTicketId', {
             data: {
                 name: cusData.name,
@@ -86,6 +78,7 @@ const ConfirmPayment = () => {
                 name: cusData.name,
                 email: cusData.email,
                 code: responseCode.data.code,
+                templateCode: import.meta.env.VITE_EMAIL_TEMPLATE_ID_ANNOUCEMENT,
             });
         }
         if (response.data.cookie_code == 1) navigate('/search');
@@ -95,34 +88,30 @@ const ConfirmPayment = () => {
         cusData && (
             <NonCartSiderLayout>
                 {contextHolder}
-                <div className={style.main}>
-                    <div className={style.container}>
-                        <h1>Customer Information</h1>
-                        <div>
-                            <div>
+                <div className="w-full h-full flex justify-center flex-wrap p-6">
+                    <div className="w-3/5 p-6 ">
+                        <h1 className="w-full text-center text-2xl font-bold">Customer Information</h1>
+                        <div className="my-6 w-full">
+                            <div className="p-2 text-[16px]">
                                 <strong>Full name: </strong>
                                 {cusData.name}
                             </div>
-                            <div>
+                            <div className="p-2 text-[16px]">
                                 <strong>Email: </strong>
                                 {cusData.email}
                             </div>
-                            <div>
+                            <div className="p-2 text-[16px]">
                                 <strong>Id: </strong>
                                 {cusData.id}
                             </div>
-                            <div>
+                            <div className="p-2 text-[16px]">
                                 <strong>Phone Number: </strong>
                                 {cusData.phone}
                             </div>
-                            <div
-                                style={{
-                                    textAlign: 'center',
-                                }}
-                            >
+                            <div className="text-center p-4">
                                 <strong>List of order</strong>
                             </div>
-                            <div>
+                            <div className="p-2 text-[16px]">
                                 {cusData &&
                                     cusData.list.map((item) => {
                                         return <CartItem key={item.id} data={item} nonEvent />;
@@ -130,7 +119,7 @@ const ConfirmPayment = () => {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="my-6 w-full">
                             <Button
                                 type="primary"
                                 style={{
@@ -147,7 +136,7 @@ const ConfirmPayment = () => {
                             </Button>
                         </div>
 
-                        <div>
+                        <div className="my-6 w-full">
                             <Button
                                 type="primary"
                                 style={{

@@ -1,5 +1,4 @@
 import DefaultLayout from '../../Layouts/DefaultLayout';
-import style from './style.module.css';
 import { Content, Footer, Header } from 'antd/es/layout/layout';
 import { Button, DatePicker, Form, Radio, Select, Space, notification } from 'antd';
 import { useEffect, useState } from 'react';
@@ -7,7 +6,6 @@ import { data } from '@/station';
 import validateForm from './validateForm';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
-import clsx from 'clsx';
 import axios from '@/config/axios';
 
 import { InfoCircleFilled } from '@ant-design/icons';
@@ -121,10 +119,10 @@ const SearchPage = () => {
         <>
             {contextHolder}
             <DefaultLayout>
-                <Header className="white-background">
-                    <h1>Search Ticket</h1>
+                <Header className="bg-white flex items-center font-bold">
+                    <h1 className="text-3xl">Search Ticket</h1>
                 </Header>
-                <Content className={clsx('white-background', style.container)}>
+                <Content className="bg-white flex justify-between">
                     <Form
                         labelCol={{
                             span: 8,
@@ -133,9 +131,7 @@ const SearchPage = () => {
                             span: 14,
                         }}
                         layout="horizontal"
-                        style={{
-                            minWidth: '70%',
-                        }}
+                        className="min-w-[70%]"
                     >
                         <Form.Item
                             label="From"
@@ -222,13 +218,7 @@ const SearchPage = () => {
                             </Space>
                         </Form.Item>
 
-                        <Form.Item
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
+                        <Form.Item className="flex items-center justify-center">
                             <Space>
                                 <Button type="primary" size="large" onClick={onSubmit}>
                                     Search
@@ -237,7 +227,7 @@ const SearchPage = () => {
                         </Form.Item>
                     </Form>
                 </Content>
-                <Footer className="white-background"></Footer>
+                <Footer className="bg-white"></Footer>
             </DefaultLayout>
         </>
     );
