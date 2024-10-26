@@ -1,4 +1,4 @@
-export default function sendEmail({ name, email, code, templateCode }) {
+export default function sendEmail({ name = '', email, code, templateCode }) {
     (() => {
         // eslint-disable-next-line no-undef
         emailjs.init(import.meta.env.VITE_EMAIL_SECRET_KEY);

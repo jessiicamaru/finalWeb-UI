@@ -1,5 +1,5 @@
 import DefaultLayout from '../../Layouts/DefaultLayout';
-import { Content, Footer, Header } from 'antd/es/layout/layout';
+import { Content, Header } from 'antd/es/layout/layout';
 import { Button, DatePicker, Form, Radio, Select, Space, notification } from 'antd';
 import { useEffect, useState } from 'react';
 import { data } from '@/station';
@@ -119,10 +119,10 @@ const SearchPage = () => {
         <>
             {contextHolder}
             <DefaultLayout>
-                <Header className="bg-white flex items-center font-bold">
+                <Header className="bg-white flex items-center font-bold max-[640px]:justify-center">
                     <h1 className="text-3xl">Search Ticket</h1>
                 </Header>
-                <Content className="bg-white flex justify-between">
+                <Content className="bg-white flex justify-between max-[640px]:justify-center">
                     <Form
                         labelCol={{
                             span: 8,
@@ -227,7 +227,6 @@ const SearchPage = () => {
                         </Form.Item>
                     </Form>
                 </Content>
-                <Footer className="bg-white"></Footer>
             </DefaultLayout>
         </>
     );

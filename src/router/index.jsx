@@ -5,6 +5,8 @@ import Payment from '@/Pages/Payment';
 import ConfirmPayment from '@/Pages/ConfirmPayment';
 import { createBrowserRouter } from 'react-router-dom';
 import BookingInfo from '@/Pages/BookingInfo';
+import ForgotBookingCode from '@/Pages/ForgotBookingCode';
+import ReturnTicket from '@/Pages/ReturnTicket';
 
 const router = createBrowserRouter([
     {
@@ -31,6 +33,16 @@ const router = createBrowserRouter([
         path: '/booking-info',
         errorElement: <ErrorPage />,
         element: <BookingInfo />,
+    },
+    {
+        path: '/return-ticket',
+        errorElement: <ErrorPage />,
+        element: <ReturnTicket />,
+    },
+    {
+        path: '/forgot-booking-code',
+        errorElement: <ErrorPage />,
+        element: <ForgotBookingCode />,
     },
     {
         path: '*',

@@ -9,7 +9,7 @@ const Coach = ({ data, coach, index }) => {
         <div className="w-full block">
             <h2 className="m-[12px] text-center w-full">Coach number {coach}</h2>
 
-            <div className="px-6 py-3 border-solid border-[3px] border-[#385d8a] rounded-[20px] mx-auto w-[95%] h-full flex justify-between">
+            <div className="px-6 py-3 border-solid border-[3px] border-[#385d8a] rounded-[20px] mx-auto w-[95%] h-full flex justify-between max-[640px]:w-full max-[640px]:px-2 max-[640px]:py-2">
                 <div className="w-[45%] h-full flex flex-wrap gap-[30px]">
                     <CoachSide index={index} isAvailable={isAvailable} step={1} />
                     <CoachSide index={index} isAvailable={isAvailable} step={17} />

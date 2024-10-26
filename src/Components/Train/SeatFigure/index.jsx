@@ -52,7 +52,7 @@ const SeatFigure = ({ position, available, number, index, isActive }) => {
             >
                 <div
                     className={clsx(
-                        'w-[84%] float-left min-h-[1px] h-full p-[2px] pr-[0px] rounded-[7px] text-center border-solid border-[1px] border-[#0000004d]',
+                        'w-[84%] float-left min-h-[1px] h-full p-[2px] pr-[0px] rounded-[7px] text-center border-solid border-[1px] border-[#0000004d] max-[640px]:text-[12px]',
                         {
                             ['white-available text-black cursor-pointer']: available,
                             ['unavailable text-white pointer-events-none']: !available,
@@ -62,7 +62,7 @@ const SeatFigure = ({ position, available, number, index, isActive }) => {
                 >
                     {number}
                 </div>
-                <div className="leading-[30px] h-full bg-[#948a54] rounded-[3px] w-[10px]"></div>
+                <div className="leading-[30px] h-full bg-[#948a54] rounded-[3px] w-[10px] md:w-[3.59px]"></div>
             </div>
         </div>
     );

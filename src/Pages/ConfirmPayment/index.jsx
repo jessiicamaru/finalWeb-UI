@@ -7,7 +7,7 @@ import { InfoCircleFilled } from '@ant-design/icons';
 
 import axios from '@/config/axios';
 import CartItem from '@/Components/CartSider/CartItem';
-import sendEmail from './sendEmail';
+import sendEmail from '@/utils/sendEmail';
 
 const ConfirmPayment = () => {
     const location = useLocation();
@@ -73,7 +73,7 @@ const ConfirmPayment = () => {
             },
         });
         if (responseCode.data) {
-            // console.log(responseCode.data);
+            console.log(responseCode.data);
             sendEmail({
                 name: cusData.name,
                 email: cusData.email,
@@ -81,7 +81,10 @@ const ConfirmPayment = () => {
                 templateCode: import.meta.env.VITE_EMAIL_TEMPLATE_ID_ANNOUCEMENT,
             });
         }
-        if (response.data.cookie_code == 1) navigate('/search');
+        if (response.data.cookie_code == 1)
+            setTimeout(() => {
+                navigate('/search');
+            }, 1000);
     };
 
     return (
@@ -121,10 +124,9 @@ const ConfirmPayment = () => {
 
                         <div className="my-6 w-full">
                             <Button
+                                className="w-full text-[16px]"
                                 type="primary"
                                 style={{
-                                    width: '100%',
-                                    fontSize: '16px',
                                     display: !successfully ? 'block' : 'none',
                                 }}
                                 size="large"
@@ -138,10 +140,9 @@ const ConfirmPayment = () => {
 
                         <div className="my-6 w-full">
                             <Button
+                                className="w-full text-[16px]"
                                 type="primary"
                                 style={{
-                                    width: '100%',
-                                    fontSize: '16px',
                                     display: successfully ? 'block' : 'none',
                                 }}
                                 size="large"

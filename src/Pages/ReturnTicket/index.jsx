@@ -1,20 +1,17 @@
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Modal } from 'antd';
 import NonCartSiderLayout from '@/Layouts/NonCartSiderLayout';
 import { useState } from 'react';
 import axios from '@/config/axios';
-import CartItem from '@/Components/CartSider/CartItem';
-import { checkCost } from '@/utils/checkCost';
 import { useNavigate } from 'react-router-dom';
 
-const BookingInfo = () => {
+const ReturnTicket = () => {
     const navigate = useNavigate();
     const [bookingCode, setBookingCode] = useState(null);
     const [phone, setPhone] = useState(null);
     const [email, setEmail] = useState(null);
-    const [list, setList] = useState(null);
 
-    const getTicket = async () => {
-        let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/getTicket', {
+    const returnTicket = async () => {
+        let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/returnTicket', {
             data: {
                 bookingCode,
                 phone,
@@ -22,8 +19,11 @@ const BookingInfo = () => {
             },
         });
 
-        console.log(response.data.list);
-        response.data.list && setList(response.data.list);
+        if (response.data.satus_code == 1) {
+            console.log(response.data.message);
+        } else {
+            console.log(response.data.message);
+        }
     };
     const reDirectPage = () => {
         navigate('/forgot-booking-code');
@@ -33,7 +33,7 @@ const BookingInfo = () => {
         <>
             <NonCartSiderLayout>
                 <div className="bg-white px-[50px] mt-6">
-                    <h2 className="text-2xl font-bold">Enter your booking code, email and phone number to track your booking status</h2>
+                    <h2 className="text-2xl font-bold">Return ticket</h2>
                     <h3 className="mt-6 text-xl font-bold">To look up the reservation, please enter 3 following items exactly :</h3>
                 </div>
 
@@ -97,8 +97,26 @@ const BookingInfo = () => {
                         </Form.Item>
 
                         <div className="flex items-center justify-center flex-wrap gap-4">
-                            <Button type="primary" size="large" onClick={getTicket}>
-                                Search
+                            <Button
+                                type="primary"
+                                size="large"
+                                onClick={() => {
+                                    Modal.confirm({
+                                        onOk: () => {
+                                            returnTicket();
+                                        },
+                                        title: 'Return ticket and refund',
+                                        content: 'This action cannot be undone, and 10% will be charged for each canceled ticket.',
+                                        footer: (_, { OkBtn, CancelBtn }) => (
+                                            <>
+                                                <CancelBtn />
+                                                <OkBtn />
+                                            </>
+                                        ),
+                                    });
+                                }}
+                            >
+                                Return ticket
                             </Button>
                             <Button type="default" size="large" onClick={reDirectPage}>
                                 Forgot your booking code?
@@ -106,30 +124,9 @@ const BookingInfo = () => {
                         </div>
                     </Form>
                 </div>
-                <div className="mt-6 w-full flex items-center justify-center">
-                    {list &&
-                        list.map((item) => {
-                            let data = {
-                                bookingDate: item.BookingDate.split('T')[0],
-                                coach: item.Coach,
-                                seat: item.Position,
-                                train: item.TrainID,
-                                fromStation: item.DepartStation,
-                                toStation: item.ArriveStation,
-                                depart: item.Depart,
-                                arrival: item.Arrive,
-                                cost: checkCost(item.Position),
-                            };
-                            return (
-                                <div key={item.id} className="w-1/2">
-                                    <CartItem data={data} nonEvent />
-                                </div>
-                            );
-                        })}
-                </div>
             </NonCartSiderLayout>
         </>
     );
 };
 
-export default BookingInfo;
+export default ReturnTicket;

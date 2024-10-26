@@ -108,7 +108,7 @@ const Result = ({ data, index }) => {
     if (data)
         return (
             <>
-                <Header className="bg-white flex items-center justify-center" key={data.date.departure + data.date.return + index}>
+                <Header className="bg-white flex items-center justify-center md:p-8" key={data.date.departure + data.date.return + index}>
                     <h2 className="text-xl font-bold">
                         Departing direction date {index == 0 ? data.date.departure : data.date.return} from {findStation(data.fromStation)} to{' '}
                         {findStation(data.toStation)}
@@ -129,8 +129,8 @@ const Result = ({ data, index }) => {
                             );
                         })}
                     </Space>
-                    <div className="w-[90%] my-[24px] mx-auto">
-                        <Space className="w100-dp_block">
+                    <div className="w-[90%] my-[24px] mx-auto max-[640px]:w-full">
+                        <Space className="w-full block max-[640px]:w-full">
                             <TrainCoach
                                 data={{
                                     name: activeTrain,

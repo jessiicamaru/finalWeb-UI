@@ -52,12 +52,7 @@ const CartSider = ({ noButton }) => {
     return (
         <>
             {contextHolder}
-            <div
-                style={{
-                    borderInlineStart: '1px solid rgba(5, 5, 5, 0.06)',
-                    height: '100%',
-                }}
-            >
+            <div className="h-full border-[1px] border-solid border-s-[#0505050f]">
                 <Space
                     direction="vertical"
                     style={{
