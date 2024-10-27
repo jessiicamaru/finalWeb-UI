@@ -7,8 +7,16 @@ import { createBrowserRouter } from 'react-router-dom';
 import BookingInfo from '@/Pages/BookingInfo';
 import ForgotBookingCode from '@/Pages/ForgotBookingCode';
 import ReturnTicket from '@/Pages/ReturnTicket';
+import TermCondition from '@/Pages/TermCondition';
+import Contact from '@/Pages/Contact';
+import Home from '@/Pages/Home';
 
 const router = createBrowserRouter([
+    {
+        path: '/',
+        errorElement: <ErrorPage />,
+        element: <Home />,
+    },
     {
         path: '/search',
         errorElement: <ErrorPage />,
@@ -43,6 +51,16 @@ const router = createBrowserRouter([
         path: '/forgot-booking-code',
         errorElement: <ErrorPage />,
         element: <ForgotBookingCode />,
+    },
+    {
+        path: '/term-condition',
+        errorElement: <ErrorPage />,
+        element: <TermCondition />,
+    },
+    {
+        path: '/contact',
+        errorElement: <ErrorPage />,
+        element: <Contact />,
     },
     {
         path: '*',

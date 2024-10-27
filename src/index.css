@@ -12,6 +12,7 @@
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 * {
@@ -64,3 +65,5 @@ html::-webkit-scrollbar-thumb {
     cursor: none !important;
     pointer-events: none !important;
 }
+
+/* highcharts-no-tooltip highcharts-button highcharts-map-navigation highcharts-zoom-in highcharts-button-normal */
