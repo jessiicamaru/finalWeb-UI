@@ -83,6 +83,7 @@ const ConfirmPayment = () => {
         }
         if (response.data.cookie_code == 1)
             setTimeout(() => {
+                localStorage.setItem('Ads', false);
                 navigate('/search');
             }, 1000);
     };

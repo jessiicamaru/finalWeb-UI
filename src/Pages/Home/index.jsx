@@ -1,11 +1,11 @@
 import NonCartSiderLayout from '@/Layouts/NonCartSiderLayout';
 import { Button } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
-import { getMapData } from './highchartData';
-import HighchartComponent from './HighChart';
+
 import Card from './Card';
 import NewsItem from './NewsItem';
+import StationGroup from './StationGroup';
 
 const Home = () => {
     const banner = ['/banner/banner1.jpg', '/banner/banner2.jpg', '/banner/banner3.jpg'];
@@ -67,7 +67,7 @@ const Home = () => {
     ];
 
     const [path, setPath] = useState(banner[0]);
-    const [mapData, setMapData] = useState({});
+
     const [slideImg, setSlideImg] = useState({
         first: 1,
         second: 2,
@@ -91,6 +91,7 @@ const Home = () => {
                 first: slideImg.first - 1,
             });
     };
+
     useEffect(() => {
         const timerId = setInterval(() => {
             setSlideImg({
@@ -118,10 +119,6 @@ const Home = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
-        getMapData().then((res) => setMapData(res));
-    });
-
     return (
         <NonCartSiderLayout>
             <div className="w-full px-6">
@@ -148,76 +145,9 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="h-screen mb-32  mt-6 ">
-                    <h2 className="text-3xl w-full text-center my-6">Station</h2>
-                    <h2 className="text-lg w-full text-center my-6">Tourist destinations across the country</h2>
-                    <div className="flex h-[600px] ">
-                        <div className="w-3/5 h-[600px] gap-3 flex p-6 border-[1px] border-solid border-s-[#0505050f]">
-                            <div className="w-1/2 gap-3 flex flex-wrap p-6">
-                                <div className="w-full flex gap-2 items-center ">
-                                    <CaretRightOutlined />
-                                    1. Hanoi Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    2. Nam Dinh Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    3. Thanh Hoa Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    4. Vinh Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    5. Dong Hoi Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    6. Hue Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    7. Danang Station
-                                </div>
-                            </div>
+                <StationGroup />
 
-                            <div className="w-1/2 gap-3 flex flex-wrap p-6">
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    8. Quang Ngai Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    9. Quy Nhon Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    10. Nha Trang Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    11. Phan Thiet Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    12. Binh Thuan Station
-                                </div>
-                                <div className="w-full flex gap-2 items-center">
-                                    <CaretRightOutlined />
-                                    13. Saigon Station
-                                </div>
-                            </div>
-                        </div>
-                        <div className="w-2/5 h-[600px]">
-                            <HighchartComponent mapData={mapData} />
-                        </div>
-                    </div>
-                </div>
-
-                <div>
+                <div className="max-[1023px]:mt-[624px]">
                     <h2 className="text-3xl w-full text-center my-6">Railway News</h2>
                     <div className="flex flex-wrap">
                         {postData.map((item, index) => {
@@ -228,7 +158,9 @@ const Home = () => {
 
                 <div className="w-full flex justify-center mt-6">
                     <Button className="w-3/5" size="large" type="primary">
-                        <a href="/search">Book ticket now!</a>
+                        <a href="/search" className="w-full h-full block ">
+                            Book ticket now!
+                        </a>
                     </Button>
                 </div>
             </div>
@@ -236,4 +168,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default memo(Home);

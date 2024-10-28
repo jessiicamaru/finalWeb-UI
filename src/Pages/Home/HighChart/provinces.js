@@ -64,3 +64,19 @@ export const data = [
     ['vn-bi', 0],
     ['vn-333', 0],
 ];
+
+export const referenceData = [
+    { 'hc-key': 'vn-318', name: 'Ha Noi' },
+    { 'hc-key': 'vn-nd', name: 'Nam Dinh' },
+    { 'hc-key': 'vn-th', name: 'Thanh Hoa' },
+    { 'hc-key': 'vn-na', name: 'Nghe An' },
+    { 'hc-key': 'vn-qb', name: 'Quang Binh' },
+    { 'hc-key': 'vn-tt', name: 'Hue' },
+    { 'hc-key': 'vn-da', name: 'Da Nang' },
+    { 'hc-key': 'vn-qg', name: 'Quang Ngai' },
+    { 'hc-key': 'vn-bd', name: 'Binh Dinh' },
+    { 'hc-key': 'vn-kh', name: 'Khanh Hoa' },
+    { 'hc-key': 'vn-bu', name: 'Phan Thiet' },
+    { 'hc-key': 'vn-bu', name: 'Binh Thuan' },
+    { 'hc-key': 'vn-hc', name: 'Sai Gon' },
+];

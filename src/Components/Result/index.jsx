@@ -33,7 +33,9 @@ const Result = ({ data, index }) => {
     useEffect(() => {
         const fn = async () => {
             try {
-                let response = await axios.get(APIUrl + `trainid=${activeTrain}&date=${date.departure}&depart=${fromStation}&arrive=${toStation}`);
+                let response = await axios.get(
+                    APIUrl + `trainid=${activeTrain}&date=${index == 0 ? date.departure : date.return}&depart=${fromStation}&arrive=${toStation}`
+                );
 
                 if (response) {
                     setCoachData(response.data.data);
@@ -135,7 +137,7 @@ const Result = ({ data, index }) => {
                                 data={{
                                     name: activeTrain,
                                     coachData,
-                                    date: data.date.departure,
+                                    date: index == 0 ? data.date.departure : data.date.return,
                                     departStation: data.fromStation,
                                     arriveStation: data.toStation,
                                     index,

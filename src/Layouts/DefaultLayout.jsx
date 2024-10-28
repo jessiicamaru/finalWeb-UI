@@ -26,7 +26,9 @@ const DefaultLayout = ({ children }) => {
     const [ad, setAd] = useState(() => {
         return adData[0];
     });
-    const [closeAd, setCloseAd] = useState(false);
+    const [closeAd, setCloseAd] = useState(() => {
+        return JSON.parse(localStorage.getItem('Ads'));
+    });
 
     useEffect(() => {
         let i = 1;
@@ -43,6 +45,7 @@ const DefaultLayout = ({ children }) => {
 
     const handleClose = () => {
         setCloseAd(!closeAd);
+        localStorage.setItem('Ads', true);
     };
 
     return (
