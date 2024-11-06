@@ -1,5 +1,6 @@
 import NonCartSiderLayout from '@/Layouts/NonCartSiderLayout';
 import { Divider } from 'antd';
+import { FacebookOutlined, InstagramOutlined, LinkedinOutlined, GithubOutlined, TikTokOutlined } from '@ant-design/icons';
 
 const Contact = () => {
     return (
@@ -20,6 +21,44 @@ const Contact = () => {
                             Enterprise code: 0100105052, fist registration on 26 July 2010, the fourth registration for change on 27 June 2014 at
                             Hanoi Authority for Planning and Investment.
                         </p>
+
+                        <div className="w-full flex mt-6 justify-center">
+                            <a
+                                target="_blank"
+                                href="https://www.facebook.com/dunghoang24/"
+                                className="p-3 hover:cursor-pointer hover:opacity-80 hover:text-[white] hover:bg-[#1677ff] transition-all rounded-[10px]"
+                            >
+                                <FacebookOutlined className="text-[25px]" />
+                            </a>
+                            <a
+                                target="_blank"
+                                href="https://www.instagram.com/_dung.24_/"
+                                className="p-3 hover:cursor-pointer hover:opacity-80 hover:text-[white] hover:bg-[#1677ff] transition-all rounded-[10px]"
+                            >
+                                <InstagramOutlined className="text-[25px]" />
+                            </a>
+                            <a
+                                target="_blank"
+                                href="https://www.linkedin.com/in/d%C5%A9ng-ho%C3%A0ng-3b07b2282/"
+                                className="p-3 hover:cursor-pointer hover:opacity-80 hover:text-[white] hover:bg-[#1677ff] transition-all rounded-[10px]"
+                            >
+                                <LinkedinOutlined className="text-[25px]" />
+                            </a>
+                            <a
+                                target="_blank"
+                                href="https://github.com/jessiicamaru/finalWeb-UI"
+                                className="p-3 hover:cursor-pointer hover:opacity-80 hover:text-[white] hover:bg-[#1677ff] transition-all rounded-[10px]"
+                            >
+                                <GithubOutlined className="text-[25px]" />
+                            </a>
+                            <a
+                                target="_blank"
+                                href="https://www.tiktok.com/@jessiicamaru"
+                                className="p-3 hover:cursor-pointer hover:opacity-80 hover:text-[white] hover:bg-[#1677ff] transition-all rounded-[10px]"
+                            >
+                                <TikTokOutlined className="text-[25px]" />
+                            </a>
+                        </div>
                     </div>
                     <div className="w-[10%] flex justify-center">
                         <Divider type="vertical" className="h-full" />

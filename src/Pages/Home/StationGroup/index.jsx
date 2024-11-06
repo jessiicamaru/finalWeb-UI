@@ -21,10 +21,15 @@ const StationGroup = () => {
                             if (index + 1 <= 7) {
                                 return (
                                     <div
-                                        className="w-full flex gap-2 items-center hover:drop-shadow-lg cursor-pointer bg-white p-3"
+                                        className="w-full flex gap-2 items-center hover:drop-shadow-md cursor-pointer bg-white p-3"
                                         key={item['hc-key']}
                                     >
-                                        <CaretRightOutlined />
+                                        <CaretRightOutlined
+                                            style={{
+                                                fontSize: '16px',
+                                                color: '#1677ff',
+                                            }}
+                                        />
                                         {index + 1} {item.name} Station
                                     </div>
                                 );
@@ -37,10 +42,15 @@ const StationGroup = () => {
                             if (index + 1 > 7) {
                                 return (
                                     <div
-                                        className="w-full flex gap-2 items-center hover:drop-shadow-lg cursor-pointer bg-white p-3"
+                                        className="w-full flex gap-2 items-center hover:drop-shadow-md cursor-pointer bg-white p-3"
                                         key={item['hc-key'] + item.name}
                                     >
-                                        <CaretRightOutlined />
+                                        <CaretRightOutlined
+                                            style={{
+                                                fontSize: '16px',
+                                                color: '#1677ff',
+                                            }}
+                                        />
                                         {index + 1} {item.name} Station
                                     </div>
                                 );

@@ -10,6 +10,7 @@ import ReturnTicket from '@/Pages/ReturnTicket';
 import TermCondition from '@/Pages/TermCondition';
 import Contact from '@/Pages/Contact';
 import Home from '@/Pages/Home';
+import FAQs from '@/Pages/FAQs';
 
 const router = createBrowserRouter([
     {
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
         path: '/contact',
         errorElement: <ErrorPage />,
         element: <Contact />,
+    },
+    {
+        path: '/faqs',
+        errorElement: <ErrorPage />,
+        element: <FAQs />,
     },
     {
         path: '*',

@@ -48,9 +48,11 @@ const NonCartSiderLayout = ({ children }) => {
     return (
         <div className="!bg-white">
             <Layout className="bg-white w-full min-h-screen flex gap-4">
-                <Sider className="!bg-white !max-w-64 !w-64 !flex-auto max-[830px]:hidden">
-                    <Header />
-                    <img src="/ads/3.jpeg" alt="" className="w-full p-3" />
+                <Sider className="!bg-white !max-w-64 !w-64 !flex-auto max-[830px]:hidden relative ">
+                    <div className="sticky top-0 left-0">
+                        <Header />
+                        <img src="/ads/3.jpeg" alt="" className="w-full p-3" />
+                    </div>
                 </Sider>
                 <Content>
                     <div className="flex justify-center h-full flex-wrap">

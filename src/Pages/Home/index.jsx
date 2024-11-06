@@ -6,6 +6,7 @@ import { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import Card from './Card';
 import NewsItem from './NewsItem';
 import StationGroup from './StationGroup';
+import { HalfStarSVG, StarSVG } from './SVG';
 
 const Home = () => {
     const banner = ['/banner/banner1.jpg', '/banner/banner2.jpg', '/banner/banner3.jpg'];
@@ -147,12 +148,182 @@ const Home = () => {
 
                 <StationGroup />
 
-                <div className="max-[1023px]:mt-[624px]">
+                <div className="max-[1023px]:mt-[624px] max-sm:flex max-sm:flex-wrap max-sm:justify-center  max-sm:mt-[650px]">
                     <h2 className="text-3xl w-full text-center my-6">Railway News</h2>
-                    <div className="flex flex-wrap">
+                    <div className="flex flex-wrap max-sm:justify-center ">
                         {postData.map((item, index) => {
                             return <NewsItem data={item} key={index * 10} />;
                         })}
+                    </div>
+                </div>
+
+                <div className="w-full flex justify-center mt-6 flex-wrap">
+                    <h2 className="text-center font-bold text-[36px] w-[80%] max-[1023px]:max-w-[95%] max-[1023px]:text-[30px]">
+                        Our travelers reviews about the ride with Vietnam Railways
+                    </h2>
+
+                    <div className="w-full shadow-md">
+                        <div className="w-auto gap-2 shadow flex pt-8 pb-5 pl-8 pr-9 ">
+                            <div className="w-[40%] flex h-[64px] items-center max-[1023px]:flex-wrap max-[1023px]:h-[80px]">
+                                <div className="text-[36px] font-bold mr-4">4.56</div>
+                                <div className="flex">
+                                    <div className="h-full flex items-center">
+                                        <StarSVG width={30} color={'#1677ff'} />
+                                    </div>
+                                    <div className="h-full flex items-center">
+                                        <StarSVG width={30} color={'#1677ff'} />
+                                    </div>
+                                    <div className="h-full flex items-center">
+                                        <StarSVG width={30} color={'#1677ff'} />
+                                    </div>
+                                    <div className="h-full flex items-center">
+                                        <StarSVG width={30} color={'#1677ff'} />
+                                    </div>
+                                    <div className="h-full flex items-center">
+                                        <HalfStarSVG width={30} color={'#1677ff'} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex-1 text-[20px] max-[1023px]:text-[16px] flex items-center">
+                                Based on 122 reviews from Bookaway users who traveled with Vietnam Railways
+                            </div>
+                        </div>
+                        {/* feed back */}
+                        <div className="w-auto gap-2 shadow flex pt-8 pb-5 pl-8 pr-9">
+                            <div className="w-[40%] flex h-[64px] items-center">
+                                <div className="w-full">
+                                    <div className="h-full flex">
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                    </div>
+
+                                    <div className="font-bold leading-loose text-[16px]">Philipp E.</div>
+                                    <div className="text-[16px] text-[#515151]">
+                                        02.08.2023{' '}
+                                        <a className="ml-3 underline" href="/search">
+                                            Vietnam Railways
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="text-[36px] font-bold mr-4"></div>
+                            </div>
+                            <div className="flex-1 text-[16px] flex items-center text-[#515151]">Lohnenswerte Fahrt durch schöne Landschaften</div>
+                        </div>
+
+                        <div className="w-auto gap-2 shadow flex pt-8 pb-5 pl-8 pr-9">
+                            <div className="w-[40%] flex h-[64px] items-center">
+                                <div className="w-full">
+                                    <div className="h-full flex">
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                    </div>
+
+                                    <div className="font-bold leading-loose text-[16px]">Leisa K.</div>
+                                    <div className="text-[16px] text-[#515151]">
+                                        27.07.2023{' '}
+                                        <a className="ml-3 underline" href="/search">
+                                            Vietnam Railways
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex-1 text-[16px] flex items-center text-[#515151]">Best train ride ever!!</div>
+                        </div>
+
+                        <div className="w-auto gap-2 shadow flex pt-8 pb-5 pl-8 pr-9">
+                            <div className="w-[40%] flex h-[64px] items-center">
+                                <div className="w-full">
+                                    <div className="h-full flex">
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                    </div>
+
+                                    <div className="font-bold leading-loose text-[16px]">Anze T.</div>
+                                    <div className="text-[16px] text-[#515151]">
+                                        19.07.2023{' '}
+                                        <a className="ml-3 underline" href="/search">
+                                            Vietnam Railways
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex-1 text-[16px] flex items-center text-[#515151]">It was cosy and nice.</div>
+                        </div>
+
+                        <div className="w-auto gap-2 shadow flex pt-8 pb-5 pl-8 pr-9">
+                            <div className="w-[40%] flex h-[64px] items-center">
+                                <div className="w-full">
+                                    <div className="h-full flex">
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                        <div className="h-full flex items-center">
+                                            <StarSVG width={13} color={'#1677ff'} />
+                                        </div>
+                                    </div>
+
+                                    <div className="font-bold leading-loose text-[16px]">Raymond K.</div>
+                                    <div className="text-[16px] text-[#515151]">
+                                        11.07.2023{' '}
+                                        <a className="ml-3 underline" href="/search">
+                                            Vietnam Railways
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex-1 text-[16px] flex items-center text-[#515151]">
+                                The trip totally exceeded our expectations! We had such a great, funny and informative guide and got many local snacks
+                                on the way. Hopefully Blaire will be your guide.
+                            </div>
+                        </div>
                     </div>
                 </div>
 

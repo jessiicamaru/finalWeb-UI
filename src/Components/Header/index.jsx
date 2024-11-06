@@ -34,26 +34,30 @@ const Header = () => {
             href: '/contact',
             content: 'Contact',
         },
+        {
+            key: '7',
+            href: '/faqs',
+            content: 'FAQs',
+        },
     ];
 
     const location = useLocation();
     const [itemKey] = useState(() => {
-        for (let i = 0; i < 5; i++) {
-            if (location.pathname.includes('/search')) return '2';
-            else if (location.pathname.includes('booking-info')) return '3';
-            else if (location.pathname.includes('return-ticket')) return '4';
-            else if (location.pathname.includes('term-condition')) return '5';
-            else if (location.pathname.includes('contact')) return '6';
-        }
+        if (location.pathname.includes('/search')) return '2';
+        else if (location.pathname.includes('booking-info')) return '3';
+        else if (location.pathname.includes('return-ticket')) return '4';
+        else if (location.pathname.includes('term-condition')) return '5';
+        else if (location.pathname.includes('contact')) return '6';
+        else if (location.pathname.includes('faqs')) return '7';
 
         return '1';
     });
 
     return (
         <header className="w-64">
-            <Menu className="w-full h-full" defaultSelectedKeys={itemKey} mode="inline" key="grp">
+            <Menu className="w-full h-full !border-none" defaultSelectedKeys={itemKey} mode="inline" key="grp">
                 <Menu.Item eventKey="none" style={{ pointerEvents: 'none' }} key="heading">
-                    <div className="text-[16px] font-bold text-black">Booking Train Ticket</div>
+                    <div className="text-[16px] font-bold text-black">Vietnam Railways</div>
                 </Menu.Item>
                 {data.map((item) => {
                     return (
