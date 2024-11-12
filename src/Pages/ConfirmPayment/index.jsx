@@ -21,8 +21,6 @@ const ConfirmPayment = () => {
     }, [location.state]);
 
     const handleCheckOrder = async (id) => {
-        console.log(cusData);
-
         try {
             console.log(id);
             let response = await axios.post(import.meta.env.VITE_API_URL_V2 + '/zalopay/check-order-status', {
@@ -65,25 +63,29 @@ const ConfirmPayment = () => {
     const handleReturn = async () => {
         let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/clearCookie');
 
-        if (response.data.cookie_code == 1) {
-            let code = cusData.list
-                .map((item) => {
-                    return item.id.slice(0, 10);
-                })
-                .join(';');
-
+        let responseCode = await axios.post(import.meta.env.VITE_API_URL_V1 + '/getBookedTicketId', {
+            data: {
+                name: cusData.name,
+                email: cusData.email,
+                id: cusData.id,
+                phone: cusData.phone,
+                bookingDate: cusData.list[0].bookingDate,
+            },
+        });
+        if (responseCode.data) {
+            console.log(responseCode.data);
             sendEmail({
                 name: cusData.name,
                 email: cusData.email,
-                code: code,
+                code: responseCode.data.code,
                 templateCode: import.meta.env.VITE_EMAIL_TEMPLATE_ID_ANNOUCEMENT,
             });
-
+        }
+        if (response.data.cookie_code == 1)
             setTimeout(() => {
                 localStorage.setItem('Ads', false);
                 navigate('/search');
             }, 1000);
-        }
     };
 
     return (
