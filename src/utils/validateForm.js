@@ -12,12 +12,14 @@ const validateForm = (data, openNotification) => {
     Object.keys(data).forEach((key) => {
         const length = data[key].rules.length;
 
+        console.log(key);
+
         for (let i = 0; i < length; i++) {
             let description = data[key].rules[i](data[key].data, key);
 
             if (description) {
                 setTimeout(() => {
-                    openNotification({ message: 'Form is incomplete', description });
+                    openNotification({ message: 'Form is incomplete', description, icon: data[key].icon });
                 }, time);
                 time += 300;
                 flag = false;
@@ -34,6 +36,21 @@ export default validateForm;
 
 validateForm.isRequired = (data, key) => {
     if (!data) return `${key} is required`;
+    if (typeof data == 'object') {
+        if (Array.isArray(data)) {
+            if (data.length > 0) {
+                return undefined;
+            }
+
+            return `${key} is required`;
+        }
+
+        if (Object.keys(data).length > 0) {
+            return undefined;
+        }
+
+        return `${key} is required`;
+    }
     return undefined;
 };
 
@@ -57,4 +74,38 @@ validateForm.includeAlphabetChar = (data, key) => {
         return `${key} includes alphabet characters`;
     }
     return undefined;
+};
+
+validateForm.isDuplicateDestination = (data, key) => {
+    if (data.toStation && data.fromStation) {
+        if (data.toStation == data.fromStation) {
+            return `${key} is duplicate`;
+        }
+        return undefined;
+    }
+};
+
+validateForm.isRequiredDate = (data) => {
+    let flag = validateForm.isRequired(data['Type of travel'], 'Type of travel');
+
+    if (!flag) {
+        if (data['Type of travel'] == 1) {
+            if (!data.Date.departure) {
+                return 'Departure date is required';
+            }
+        } else {
+            if (!data.Date.departure) {
+                return 'Departure date is required';
+            }
+            if (!data.Date.return) {
+                return 'Return date is required';
+            }
+
+            if (data.Date.departure > data.Date.return) {
+                return 'Departure day must be before return date';
+            }
+        }
+
+        return undefined;
+    }
 };

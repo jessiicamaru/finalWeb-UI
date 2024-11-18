@@ -3,7 +3,7 @@ import { Content, Header } from 'antd/es/layout/layout';
 import { Button, DatePicker, Form, Radio, Select, Space, notification } from 'antd';
 import { useEffect, useState } from 'react';
 import { data } from '@/station';
-import validateForm from './validateForm';
+import validateForm from '@/utils/validateForm';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import axios from '@/config/axios';
@@ -62,15 +62,41 @@ const SearchPage = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        const flag = validateForm(
-            {
-                fromStation,
-                toStation,
-                way,
-                date,
+        const dataToValidate = {
+            'Depart station': {
+                data: fromStation,
+                rules: [validateForm.isRequired],
+                icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
             },
-            openNotification
-        );
+            'Arrive station': {
+                data: toStation,
+                rules: [validateForm.isRequired],
+                icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
+            },
+            'Type of travel': {
+                data: way,
+                rules: [validateForm.isRequired],
+                icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
+            },
+            Date: {
+                data: {
+                    Date: date,
+                    'Type of travel': way,
+                },
+                rules: [validateForm.isRequiredDate],
+                icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
+            },
+            'Depart station and Arrive station': {
+                data: {
+                    fromStation,
+                    toStation,
+                },
+                rules: [validateForm.isDuplicateDestination],
+                icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
+            },
+        };
+
+        const flag = validateForm(dataToValidate, openNotification);
 
         if (flag) {
             let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/senddata', {

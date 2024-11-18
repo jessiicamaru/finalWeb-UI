@@ -39,9 +39,9 @@ const FAQs = () => {
 
     return (
         <NonCartSiderLayout>
-            <div className="bg-white px-[50px] my-6 flex justify-center flex-wrap ">
+            <div className="bg-white px-[50px] my-6 flex justify-center flex-wrap max-[1023px]:px-[5%]">
                 <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
-                <div className="w-4/5 flex flex-wrap mt-4 shadow-md p-4 pb-8">
+                <div className="w-4/5 flex flex-wrap mt-4 shadow-md p-4 pb-8 max-[1023px]:w-full">
                     {faqs.map((item, index) => {
                         return (
                             <div key={item.question} className="w-full transition-all">
@@ -58,7 +58,7 @@ const FAQs = () => {
                                                 }
                                             }}
                                         >
-                                            <DownCircleOutlined className="text-[#1677ff] text-[20px]" />
+                                            <DownCircleOutlined className="text-[#1677ff] text-[20px] w-full" />
                                         </div>
                                         <div className="flex-1">
                                             <strong>{item.question}</strong>

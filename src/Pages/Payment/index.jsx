@@ -3,7 +3,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, notification } from 'antd';
 
-import validateForm from './validateForm';
+import validateForm from '@/utils/validateForm';
 import { CaretRightOutlined, InfoCircleFilled } from '@ant-design/icons';
 
 import { getListTicket } from '@/redux/selectors';

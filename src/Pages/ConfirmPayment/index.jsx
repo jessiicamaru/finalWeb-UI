@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, notification } from 'antd';
 
-import { InfoCircleFilled } from '@ant-design/icons';
+import { InfoCircleFilled, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 import axios from '@/config/axios';
 import CartItem from '@/Components/CartSider/CartItem';
@@ -27,22 +27,25 @@ const ConfirmPayment = () => {
                 app_trans_id: id,
             });
 
-            console.log(response.data);
+            console.log('[handleCheckOrder]', response.data);
             if (response.data.return_code == 1) {
                 openNotification({
                     message: 'Order status',
                     description: 'Your order has been paid successfully',
+                    icon: <CheckCircleOutlined style={{ color: '#0eba12' }} />,
                 });
                 setSuccessfully(true);
             } else if (response.data.return_code == 2) {
                 openNotification({
                     message: 'Order status',
                     description: 'Your order payment failed',
+                    icon: <CloseCircleOutlined style={{ color: '#ee1b24' }} />,
                 });
             } else if (response.data.return_code == 3) {
                 openNotification({
                     message: 'Order status',
                     description: 'Your order is on processing',
+                    icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
                 });
             }
         } catch (err) {
@@ -50,37 +53,31 @@ const ConfirmPayment = () => {
         }
     };
 
-    const openNotification = ({ message, description }) => {
+    const openNotification = ({ message, description, icon }) => {
         api.info({
             message,
             description,
             placement: 'topRight',
             duration: 3,
-            icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
+            icon,
         });
     };
 
     const handleReturn = async () => {
         let response = await axios.post(import.meta.env.VITE_API_URL_V1 + '/clearCookie');
 
-        let responseCode = await axios.post(import.meta.env.VITE_API_URL_V1 + '/getBookedTicketId', {
-            data: {
-                name: cusData.name,
-                email: cusData.email,
-                id: cusData.id,
-                phone: cusData.phone,
-                bookingDate: cusData.list[0].bookingDate,
-            },
+        let code = cusData.list
+            .map((item) => {
+                return item.id.slice(0, 10);
+            })
+            .join(';');
+
+        sendEmail({
+            name: cusData.name,
+            email: cusData.email,
+            code: code,
+            templateCode: import.meta.env.VITE_EMAIL_TEMPLATE_ID_ANNOUCEMENT,
         });
-        if (responseCode.data) {
-            console.log(responseCode.data);
-            sendEmail({
-                name: cusData.name,
-                email: cusData.email,
-                code: responseCode.data.code,
-                templateCode: import.meta.env.VITE_EMAIL_TEMPLATE_ID_ANNOUCEMENT,
-            });
-        }
         if (response.data.cookie_code == 1)
             setTimeout(() => {
                 localStorage.setItem('Ads', false);

@@ -167,19 +167,19 @@ const Home = () => {
                             <div className="w-[40%] flex h-[64px] items-center max-[1023px]:flex-wrap max-[1023px]:h-[80px]">
                                 <div className="text-[36px] font-bold mr-4">4.56</div>
                                 <div className="flex">
-                                    <div className="h-full flex items-center">
+                                    <div className="h-full w-[30px] flex items-center">
                                         <StarSVG width={30} color={'#1677ff'} />
                                     </div>
-                                    <div className="h-full flex items-center">
+                                    <div className="h-full w-[30px] flex items-center">
                                         <StarSVG width={30} color={'#1677ff'} />
                                     </div>
-                                    <div className="h-full flex items-center">
+                                    <div className="h-full w-[30px] flex items-center">
                                         <StarSVG width={30} color={'#1677ff'} />
                                     </div>
-                                    <div className="h-full flex items-center">
+                                    <div className="h-full w-[30px] flex items-center">
                                         <StarSVG width={30} color={'#1677ff'} />
                                     </div>
-                                    <div className="h-full flex items-center">
+                                    <div className="h-full w-[30px] flex items-center">
                                         <HalfStarSVG width={30} color={'#1677ff'} />
                                     </div>
                                 </div>
@@ -193,19 +193,19 @@ const Home = () => {
                             <div className="w-[40%] flex h-[64px] items-center">
                                 <div className="w-full">
                                     <div className="h-full flex">
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
                                     </div>
@@ -227,19 +227,19 @@ const Home = () => {
                             <div className="w-[40%] flex h-[64px] items-center">
                                 <div className="w-full">
                                     <div className="h-full flex">
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
                                     </div>
@@ -260,19 +260,19 @@ const Home = () => {
                             <div className="w-[40%] flex h-[64px] items-center">
                                 <div className="w-full">
                                     <div className="h-full flex">
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
                                     </div>
@@ -293,19 +293,19 @@ const Home = () => {
                             <div className="w-[40%] flex h-[64px] items-center">
                                 <div className="w-full">
                                     <div className="h-full flex">
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
-                                        <div className="h-full flex items-center">
+                                        <div className="h-full flex items-center w-[13px]">
                                             <StarSVG width={13} color={'#1677ff'} />
                                         </div>
                                     </div>
