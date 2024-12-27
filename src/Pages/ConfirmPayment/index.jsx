@@ -41,6 +41,10 @@ const ConfirmPayment = () => {
                     description: 'Your order payment failed',
                     icon: <CloseCircleOutlined style={{ color: '#ee1b24' }} />,
                 });
+
+                setTimeout(() => {
+                    navigate('/search');
+                }, 2000);
             } else if (response.data.return_code == 3) {
                 openNotification({
                     message: 'Order status',
