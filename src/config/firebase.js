@@ -7,13 +7,13 @@ import { getAnalytics } from 'firebase/analytics';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: 'AIzaSyArRurmooaF1KotMpbHUgPP2haIUDqUaCs',
-    authDomain: 'railway-ticket-22794.firebaseapp.com',
-    projectId: 'railway-ticket-22794',
-    storageBucket: 'railway-ticket-22794.firebasestorage.app',
-    messagingSenderId: '1000812081531',
-    appId: '1:1000812081531:web:3e54c50e81e575072e8dde',
-    measurementId: 'G-BJF9VLMQ92',
+    apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTHDOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECTID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGEBUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APPID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENTID,
 };
 
 // Initialize Firebase

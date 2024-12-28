@@ -22,6 +22,13 @@ export default function AuthProvider({ children }) {
                 return;
             }
 
+            if (location.pathname.includes('/')) return;
+            else if (location.pathname.includes('booking-info')) return;
+            else if (location.pathname.includes('return-ticket')) return;
+            else if (location.pathname.includes('term-condition')) return;
+            else if (location.pathname.includes('contact')) return;
+            else if (location.pathname.includes('faqs')) return;
+
             setUser({});
             localStorage.removeItem('access_token_rt');
             navigate('/login');
