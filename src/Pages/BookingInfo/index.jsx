@@ -75,12 +75,12 @@ const BookingInfo = () => {
     return (
         <NonCartSiderLayout>
             {contextHolder}
-            <div className="bg-white px-[50px] mt-6">
+            <div className="bg-white px-[50px] mt-6 w-full">
                 <h2 className="text-2xl font-bold">Enter your booking code, email and phone number to track your booking status</h2>
                 <h3 className="mt-6 text-xl font-bold">To look up the reservation, please enter 3 following items exactly :</h3>
             </div>
 
-            <div className="bg-white flex px-[50px] py-6 items-center justify-center">
+            <div className="bg-white flex px-[50px] py-6 items-center justify-center w-full">
                 <Form
                     labelCol={{
                         span: 6,

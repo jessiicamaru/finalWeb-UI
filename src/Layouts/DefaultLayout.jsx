@@ -10,7 +10,7 @@ import { ShoppingCartOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
 
 // eslint-disable-next-line react/prop-types
-const DefaultLayout = ({ children }) => {
+const DefaultLayout = ({ children, noButton = false }) => {
     const adData = [
         {
             img: '1',
@@ -54,10 +54,9 @@ const DefaultLayout = ({ children }) => {
                 <Sider className="!bg-white !max-w-64 !w-64 !flex-auto max-[830px]:hidden relative ">
                     <div className="sticky top-0 left-0">
                         <Header />
-                        <img src="/ads/3.jpeg" alt="" className="w-full p-3" />
                     </div>
                 </Sider>
-                <Content className="flex flex-wrap ">
+                <Content className="flex flex-wrap">
                     <Button
                         className="absolute right-2 top-2 xl:hidden lg:hidden 2xl:hidden z-20"
                         onClick={() => {
@@ -74,7 +73,7 @@ const DefaultLayout = ({ children }) => {
                     >
                         <UnorderedListOutlined className="text-[16px]" />
                     </Button>
-                    <Layout className="max-[830px]:px-3">{children}</Layout>
+                    <Layout>{children}</Layout>
                     <FooterComponent />
                 </Content>
                 <Sider className="!bg-white !max-w-[300px] !w-[300px] max-[830px]:hidden !flex-auto  sm:hidden md:hidden lg:block xl:block 2xl:block">
@@ -89,7 +88,7 @@ const DefaultLayout = ({ children }) => {
                     ['max-[830px]:absolute max-[830px]:right-2 max-[830px]:top-2 max-[830px]:z-10 max-[830px]:drop-shadow-md']: on,
                 })}
             >
-                <CartSider />
+                <CartSider noButton={noButton} />
             </div>
             <div
                 className={clsx('!bg-white !flex-auto ', {

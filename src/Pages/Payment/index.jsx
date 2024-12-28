@@ -1,4 +1,4 @@
-import NonCartButtonLayout from '@/Layouts/NonCartButtonLayout';
+import DefaultLayout from '@/Layouts/DefaultLayout';
 import { useEffect, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, notification } from 'antd';
@@ -123,7 +123,7 @@ const Payment = () => {
     return (
         <>
             {contextHolder}
-            <NonCartButtonLayout>
+            <DefaultLayout noButton={true}>
                 <div className="bg-white w-full p-6">
                     <div>
                         <h1 className="text-2xl w-full text-center font-bold">Choose payment method</h1>
@@ -285,7 +285,7 @@ const Payment = () => {
                         </div>
                     </div>
                 </div>
-            </NonCartButtonLayout>
+            </DefaultLayout>
         </>
     );
 };

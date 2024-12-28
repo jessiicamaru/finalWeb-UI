@@ -51,23 +51,20 @@ const NonCartSiderLayout = ({ children }) => {
                 <Sider className="!bg-white !max-w-64 !w-64 !flex-auto max-[830px]:hidden relative ">
                     <div className="sticky top-0 left-0">
                         <Header />
-                        <img src="/ads/3.jpeg" alt="" className="w-full p-3" />
                     </div>
                 </Sider>
-                <Content>
-                    <div className="flex justify-center h-full flex-wrap">
-                        <Button
-                            className="absolute right-2 top-2 max-[830px]:flex hidden z-20"
-                            onClick={() => {
-                                setOnHeader(!onHeader);
-                            }}
-                        >
-                            <UnorderedListOutlined className="text-[16px]" />
-                        </Button>
-                        <Layout className="!bg-white">{children}</Layout>
-                        <div className="md:w-4/5 max-[830px]:w-full">
-                            <FooterComponent />
-                        </div>
+                <Content className="flex flex-wrap justify-center">
+                    <Button
+                        className="absolute right-2 top-2 max-[830px]:flex hidden z-20"
+                        onClick={() => {
+                            setOnHeader(!onHeader);
+                        }}
+                    >
+                        <UnorderedListOutlined className="text-[16px]" />
+                    </Button>
+                    <Layout className="!bg-white w-full items-center">{children}</Layout>
+                    <div className="md:w-4/5 max-[830px]:w-full">
+                        <FooterComponent />
                     </div>
                 </Content>
             </Layout>
