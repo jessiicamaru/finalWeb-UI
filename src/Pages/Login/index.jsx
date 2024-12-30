@@ -4,12 +4,12 @@ import { UserOutlined, LockOutlined, FacebookOutlined, MailOutlined } from '@ant
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 // import { useContext } from 'react';
 // import { AuthContext } from '@/context/AuthProvider';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from '@/config/axios';
 
 const Login = () => {
     const auth = getAuth();
-    // const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLoginWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
@@ -26,11 +26,12 @@ const Login = () => {
         });
 
         console.log(res);
+        if (res.status === 200) navigate('/');
     };
 
-    // if (localStorage.getItem('access_token_rt')) {
-    //     return <Navigate to="/" />;
-    // }
+    if (localStorage.getItem('access_token_rt')) {
+        navigate('/');
+    }
 
     return (
         <NonCartSiderLayout>
