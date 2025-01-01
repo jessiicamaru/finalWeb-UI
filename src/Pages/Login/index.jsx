@@ -6,7 +6,7 @@ import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopu
 // import { AuthContext } from '@/context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import axios from '@/config/axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Login = () => {
     const auth = getAuth();
@@ -35,9 +35,9 @@ const Login = () => {
         if (res.status === 200) navigate('/');
     };
 
-    if (localStorage.getItem('access_token_rt')) {
-        navigate('/');
-    }
+    useEffect(() => {
+        localStorage.getItem('access_token_rt') && navigate('/');
+    }, [navigate]);
 
     const handleChange = (field, value) => {
         setData({ ...data, [field]: value });
@@ -50,7 +50,7 @@ const Login = () => {
             const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
             const token = await userCredential.user.getIdToken();
             localStorage.setItem('access_token_rt', token);
-            console.log('Email Login Success:', token);
+            navigate('/');
         } catch (error) {
             console.error('Email Login Error:', error);
         }

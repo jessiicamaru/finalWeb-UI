@@ -9,16 +9,15 @@ import Loading from '@/Components/Loading';
 import SideBar from './SideBar';
 import validateForm from '@/utils/validateForm';
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { EmailAuthProvider, linkWithCredential, updatePassword } from 'firebase/auth';
 
 const User = () => {
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [u, setU] = useState({});
     const [loading, setLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const auth = getAuth();
 
     const [password, setPassword] = useState({
         current: '',
@@ -101,14 +100,21 @@ const User = () => {
         const flag = validateForm(dataToValidate, openNotification);
 
         if (flag) {
-            console.log({ u, user });
             await axios.post(import.meta.env.VITE_API_URL_V3 + '/update-user', {
                 uid: u.UID,
                 password: password.new,
             });
 
-            const { user } = await createUserWithEmailAndPassword(auth, u.Email, password.new);
-            setUser(user);
+            if (!u.Password) {
+                const credential = EmailAuthProvider.credential(u.Email, password.new);
+
+                // Liên kết thông tin đăng nhập email/password với tài khoản hiện tại
+                const rs = await linkWithCredential(user, credential);
+
+                console.log('[email, pass]', rs.user);
+            }
+
+            await updatePassword(user, password.new);
 
             navigate('/user/info');
         }
