@@ -90,6 +90,7 @@ const Header = () => {
                         <a
                             href={'/search'}
                             onClick={(e) => {
+                                if (isLoggedIn) return;
                                 e.preventDefault();
                                 console.log(1);
                                 api.info({
@@ -122,7 +123,7 @@ const Header = () => {
                             '!hidden': !isLoggedIn,
                         })}
                     >
-                        <a href="/user">
+                        <a href="/user/info">
                             <Avatar src={userDisplay.photoURL} className="mr-4">
                                 {userDisplay.photoURL ? '' : userDisplay?.displayName?.charAt(0).toUpperCase()}
                             </Avatar>

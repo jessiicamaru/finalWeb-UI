@@ -37,6 +37,25 @@ export default validateForm;
 validateForm.isRequired = (data, key) => {
     if (!data) return `${key} is required`;
     if (typeof data == 'object') {
+        if (['Current password', 'New password', 'Confirm password'].includes(key)) {
+            if (key == 'Current password') {
+                if (!data.haveToCompare && !data.data) return undefined;
+                if (data.haveToCompare && !data.data) return `${key} is required`;
+                if (!data.haveToCompare && data.data) return `${key} is not required`;
+            }
+
+            if (key == 'New password') {
+                if (!data.data) return `${key} is required`;
+            }
+
+            if (key == 'Confirm password') {
+                if (!data.haveToCompare) return `New password is required`;
+                if (!data.data) return `${key} is required`;
+            }
+
+            return undefined;
+        }
+
         if (Array.isArray(data)) {
             if (data.length > 0) {
                 return undefined;
@@ -108,4 +127,31 @@ validateForm.isRequiredDate = (data) => {
 
         return undefined;
     }
+};
+
+validateForm.isCurrentPassword = (x, key) => {
+    if (!x.haveToCompare) return undefined;
+
+    const { data, haveToCompare } = x;
+
+    if (data == haveToCompare) return undefined;
+    return `${key} should be the same as the current password`;
+};
+
+validateForm.isNewPassword = (x, key) => {
+    if (!x.haveToCompare) return undefined;
+
+    const { data, haveToCompare } = x;
+
+    if (data != haveToCompare) return undefined;
+    return `${key} should be distinct from the current password`;
+};
+
+validateForm.isConfirmPassword = (x, key) => {
+    if (!x.haveToCompare) return undefined;
+
+    const { data, haveToCompare } = x;
+
+    if (data == haveToCompare) return undefined;
+    return `${key} should be distinct from the current password`;
 };

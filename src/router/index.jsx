@@ -3,7 +3,6 @@ import Booking from '@/Pages/Booking';
 import ErrorPage from '@/Pages/ErrorPage';
 import Payment from '@/Pages/Payment';
 import ConfirmPayment from '@/Pages/ConfirmPayment';
-import { createBrowserRouter, Outlet } from 'react-router-dom';
 import BookingInfo from '@/Pages/BookingInfo';
 import ForgotBookingCode from '@/Pages/ForgotBookingCode';
 import ReturnTicket from '@/Pages/ReturnTicket';
@@ -14,6 +13,8 @@ import FAQs from '@/Pages/FAQs';
 import Login from '@/Pages/Login';
 import AuthProvider from '@/context/AuthProvider';
 import ProtectedRoute from './ProtectRoute';
+import User from '@/Pages/User';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AuthLayout = () => {
@@ -55,6 +56,11 @@ const router = createBrowserRouter([
                         path: '/return-ticket',
                         errorElement: <ErrorPage />,
                         element: <ReturnTicket />,
+                    },
+                    {
+                        path: '/user/info',
+                        errorElement: <ErrorPage />,
+                        element: <User />,
                     },
                 ],
             },
