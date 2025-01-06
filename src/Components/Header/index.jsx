@@ -62,10 +62,6 @@ const Header = () => {
         setUserDisplay(user);
     }, [user]);
 
-    useEffect(() => {
-        setUserDisplay(user);
-    }, [user]);
-
     const handleLogOut = () => {
         setUser({});
         localStorage.removeItem('access_token_rt');

@@ -1,14 +1,13 @@
 import { AuthContext } from '@/context/AuthProvider';
 import NonCartSiderLayout from '@/Layouts/NonCartSiderLayout';
-import { Alert, Avatar, Button, Col, Form, Input, notification, Row, Space, Typography } from 'antd';
+import { Alert, Avatar, Button, Col, Form, Input, Modal, notification, Row, Space, Typography } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { EditOutlined, EyeInvisibleOutlined, EyeOutlined, EyeTwoTone, InfoCircleFilled } from '@ant-design/icons';
 import axios from '@/config/axios';
 import clsx from 'clsx';
 import Loading from '@/Components/Loading';
-import SideBar from './SideBar';
+import UserSideBar from '@/Components/UserSideBar';
 import validateForm from '@/utils/validateForm';
-import { useNavigate } from 'react-router-dom';
 import { EmailAuthProvider, linkWithCredential, updatePassword } from 'firebase/auth';
 
 const User = () => {
@@ -16,18 +15,38 @@ const User = () => {
     const [u, setU] = useState({});
     const [loading, setLoading] = useState(false);
     const [api, contextHolder] = notification.useNotification();
-    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [showID, setShowID] = useState(false);
+    const [showPhone, setShowPhone] = useState(false);
 
-    const [password, setPassword] = useState({
+    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [pass, setPass] = useState(false);
+
+    const [data, setData] = useState({
         current: '',
         new: '',
         confirm: '',
+        id: '',
+        phone: '',
+        passwordModal: '',
     });
 
     const [isEdit, setIsEdit] = useState({
         password: false,
     });
+
+    const handleOk = () => {
+        if (!u.Password) {
+            setIsModalOpen(false);
+            return;
+        }
+        if (data.passwordModal == u.Password) {
+            setIsModalOpen(false);
+            setPass(true);
+        } else {
+            openNotification({ message: 'Password', description: 'Password is incorrect', icon: <InfoCircleFilled style={{ color: '#f9bf02' }} /> });
+        }
+    };
 
     const handleEdit = (field) => {
         setIsEdit({
@@ -37,8 +56,8 @@ const User = () => {
     };
 
     const handleOnchange = (field, value) => {
-        setPassword({
-            ...password,
+        setData({
+            ...data,
             [field]: value,
         });
     };
@@ -73,7 +92,7 @@ const User = () => {
         const dataToValidate = {
             'Current password': {
                 data: {
-                    data: password.current,
+                    data: data.current,
                     haveToCompare: u.Password,
                 },
                 rules: [validateForm.isRequired, validateForm.isCurrentPassword],
@@ -81,7 +100,7 @@ const User = () => {
             },
             'New password': {
                 data: {
-                    data: password.new,
+                    data: data.new,
                     haveToCompare: u.Password,
                 },
                 rules: [validateForm.isRequired, validateForm.isNewPassword],
@@ -89,8 +108,8 @@ const User = () => {
             },
             'Confirm password': {
                 data: {
-                    data: password.confirm,
-                    haveToCompare: password.new,
+                    data: data.confirm,
+                    haveToCompare: data.new,
                 },
                 rules: [validateForm.isRequired, validateForm.isConfirmPassword],
                 icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
@@ -102,11 +121,11 @@ const User = () => {
         if (flag) {
             await axios.post(import.meta.env.VITE_API_URL_V3 + '/update-user', {
                 uid: u.UID,
-                password: password.new,
+                password: data.new,
             });
 
             if (!u.Password) {
-                const credential = EmailAuthProvider.credential(u.Email, password.new);
+                const credential = EmailAuthProvider.credential(u.Email, data.new);
 
                 // Liên kết thông tin đăng nhập email/password với tài khoản hiện tại
                 const rs = await linkWithCredential(user, credential);
@@ -114,9 +133,38 @@ const User = () => {
                 console.log('[email, pass]', rs.user);
             }
 
-            await updatePassword(user, password.new);
+            await updatePassword(user, data.new);
 
-            navigate('/user/info');
+            window.location.reload();
+        }
+    };
+
+    const handleSubmitSubForm = async (e) => {
+        e.preventDefault();
+
+        const dataToValidate = {
+            'ID Number': {
+                data: data.id,
+                rules: [validateForm.isRequired, validateForm.includeSpecChar, validateForm.includeAlphabetChar],
+                icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
+            },
+            Phone: {
+                data: data.phone,
+                rules: [validateForm.isRequired, validateForm.includeAlphabetChar, validateForm.includeSpecChar],
+                icon: <InfoCircleFilled style={{ color: '#f9bf02' }} />,
+            },
+        };
+
+        const flag = validateForm(dataToValidate, openNotification);
+
+        if (flag) {
+            await axios.post(import.meta.env.VITE_API_URL_V3 + '/update-user', {
+                uid: u.UID,
+                idNumber: data.id,
+                phone: data.phone,
+            });
+
+            window.location.reload();
         }
     };
 
@@ -125,18 +173,33 @@ const User = () => {
     ) : (
         <>
             {contextHolder}
+            <Modal title="Input password" open={isModalOpen} onOk={handleOk} cancelButtonProps={{ style: { display: 'none' } }} closable={false}>
+                <Input.Password
+                    placeholder="At least 6 characters"
+                    onChange={(e) => {
+                        handleOnchange('passwordModal', e.target.value);
+                    }}
+                />
+            </Modal>
             <NonCartSiderLayout>
-                <Row className="h-full w-full bg-white px-[50px] mt-6" justify="center" align="center" wrap={true}>
+                <Row
+                    className={clsx('h-full w-full bg-white px-[50px] mt-6', {
+                        'pointer-events-none': !pass,
+                    })}
+                    justify="center"
+                    align="center"
+                    wrap={true}
+                >
                     <Row className="w-[90%] min-w-[calc(100% - 36px)]">
                         <Col span={4}>
-                            <SideBar />
+                            <UserSideBar />
                         </Col>
                         <Col span={20} className="p-8">
                             <Typography.Title level={2} className="text-center w-full !font-bold !mb-12">
                                 Personal Information
                             </Typography.Title>
                             <Row>
-                                <Col span={18} className="border-r-2">
+                                <Col span={20} className="border-r-2 pr-8">
                                     <Row align="center" className="mb-6">
                                         <Col span={24}>
                                             <Typography.Text className="block !w-full !font-bold text-[16px]">Name</Typography.Text>
@@ -165,16 +228,11 @@ const User = () => {
                                             </Typography.Text>
 
                                             <Form
-                                                labelCol={{
-                                                    span: 10,
-                                                }}
-                                                wrapperCol={{
-                                                    span: 14,
-                                                }}
                                                 className={clsx('w-full mt-4', {
                                                     '!hidden': !isEdit.password,
                                                     block: isEdit.password,
                                                 })}
+                                                layout="vertical"
                                             >
                                                 <Form.Item
                                                     label="Current password"
@@ -244,20 +302,7 @@ const User = () => {
                                                 </Form.Item>
                                             </Form>
                                         </Col>
-                                        <Col span={8} className="flex items-center justify-end pr-3">
-                                            <Button
-                                                icon={<EyeOutlined />}
-                                                ghost
-                                                className={clsx('!text-black', {
-                                                    '!hidden': !u.Password,
-                                                    block: u.Password,
-                                                })}
-                                                onClick={() => {
-                                                    setShowPassword(!showPassword);
-                                                }}
-                                            >
-                                                Show
-                                            </Button>
+                                        <Col span={8} className="flex items-center justify-end gap-2">
                                             <Button
                                                 icon={<EditOutlined />}
                                                 ghost
@@ -267,6 +312,33 @@ const User = () => {
                                                 }}
                                             >
                                                 Edit
+                                            </Button>
+                                            <Button
+                                                icon={<EyeOutlined />}
+                                                ghost
+                                                className={clsx('!text-black', {
+                                                    '!hidden': !u.Password || showPassword,
+                                                    flex: u.Password,
+                                                })}
+                                                onClick={() => {
+                                                    setShowPassword(!showPassword);
+                                                }}
+                                            >
+                                                Show
+                                            </Button>
+
+                                            <Button
+                                                icon={<EyeInvisibleOutlined />}
+                                                ghost
+                                                className={clsx('!text-black', {
+                                                    '!hidden': !showPassword,
+                                                    flex: showPassword,
+                                                })}
+                                                onClick={() => {
+                                                    setShowPassword(!showPassword);
+                                                }}
+                                            >
+                                                Hide
                                             </Button>
                                         </Col>
                                     </Row>
@@ -281,8 +353,142 @@ const User = () => {
                                         type="info"
                                         showIcon
                                     />
+
+                                    <Row
+                                        className={clsx('w-full p-6 border-[1px] rounded-2xl', {
+                                            '!hidden': u.PhoneNumber && u.IDNumber,
+                                            block: !u.PhoneNumber && !u.IDNumber,
+                                        })}
+                                    >
+                                        <Typography.Title level={2} className="font-bold w-full block text-center">
+                                            Additional Information
+                                        </Typography.Title>
+
+                                        <Alert
+                                            className="w-full mb-3"
+                                            message="Additional Information"
+                                            description="Set up more information for easy reservation!"
+                                            type="info"
+                                            showIcon
+                                        />
+                                        <Form className="w-full " layout="vertical">
+                                            <Form.Item
+                                                label="ID Number"
+                                                name="id"
+                                                rules={[{ required: true, message: 'Please input your ID!' }]}
+                                                vertical
+                                            >
+                                                <Input
+                                                    className="w-full"
+                                                    placeholder="At least 6 characters"
+                                                    onChange={(e) => {
+                                                        handleOnchange('id', e.target.value);
+                                                    }}
+                                                />
+                                            </Form.Item>
+
+                                            <Form.Item
+                                                label="Phone Number"
+                                                name="phone"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Please input your password!',
+                                                    },
+                                                ]}
+                                            >
+                                                <Input
+                                                    className="w-full"
+                                                    placeholder="At least 6 characters"
+                                                    onChange={(e) => {
+                                                        handleOnchange('phone', e.target.value);
+                                                    }}
+                                                />
+                                            </Form.Item>
+
+                                            <Form.Item className="flex justify-center">
+                                                <Button type="primary" size="large" className="w-24" onClick={handleSubmitSubForm}>
+                                                    Save
+                                                </Button>
+                                            </Form.Item>
+                                        </Form>
+                                    </Row>
+
+                                    <Row align="center" className="mb-6">
+                                        <Col span={20}>
+                                            <Typography.Text className="block !w-full !font-bold text-[16px]">ID Number</Typography.Text>
+                                            <Typography.Text className="block !w-full">{showID ? u.IDNumber : '*********'}</Typography.Text>
+                                        </Col>
+
+                                        <Col span={4} className="flex items-center justify-end">
+                                            <Button
+                                                icon={<EyeOutlined className="mr-2" />}
+                                                ghost
+                                                className={clsx('!text-black', {
+                                                    '!hidden': showID,
+                                                    block: !showID,
+                                                })}
+                                                onClick={() => {
+                                                    setShowID(!showID);
+                                                }}
+                                            >
+                                                Show
+                                            </Button>
+
+                                            <Button
+                                                icon={<EyeInvisibleOutlined className="mr-2" />}
+                                                ghost
+                                                className={clsx('!text-black', {
+                                                    '!hidden': !showID,
+                                                    block: showID,
+                                                })}
+                                                onClick={() => {
+                                                    setShowID(!showID);
+                                                }}
+                                            >
+                                                Hide
+                                            </Button>
+                                        </Col>
+                                    </Row>
+
+                                    <Row align="center" className="mb-6">
+                                        <Col span={20}>
+                                            <Typography.Text className="block !w-full !font-bold text-[16px]">Phone</Typography.Text>
+                                            <Typography.Text className="block !w-full">{showPhone ? u.PhoneNumber : '********'}</Typography.Text>
+                                        </Col>
+
+                                        <Col span={4} className="flex items-center justify-end">
+                                            <Button
+                                                icon={<EyeOutlined className="mr-2" />}
+                                                ghost
+                                                className={clsx('!text-black', {
+                                                    '!hidden': showPhone,
+                                                    block: !showPhone,
+                                                })}
+                                                onClick={() => {
+                                                    setShowPhone(!showPhone);
+                                                }}
+                                            >
+                                                Show
+                                            </Button>
+
+                                            <Button
+                                                icon={<EyeInvisibleOutlined className="mr-2" />}
+                                                ghost
+                                                className={clsx('!text-black', {
+                                                    '!hidden': !showPhone,
+                                                    block: showPhone,
+                                                })}
+                                                onClick={() => {
+                                                    setShowPhone(!showPhone);
+                                                }}
+                                            >
+                                                Hide
+                                            </Button>
+                                        </Col>
+                                    </Row>
                                 </Col>
-                                <Col span={6}>
+                                <Col span={4}>
                                     <Space className="w-full flex justify-center">
                                         <Avatar className="w-[80px] h-[80px]" src={u.PhotoURL}>
                                             {u.PhotoURL ? '' : u.DisplayName?.charAt(0).toUpperCase()}

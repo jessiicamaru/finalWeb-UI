@@ -3,7 +3,7 @@ import Link from 'antd/es/typography/Link';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const SideBar = () => {
+const UserSideBar = () => {
     const location = useLocation();
 
     const [itemKey] = useState(() => {
@@ -25,4 +25,4 @@ const SideBar = () => {
     );
 };
 
-export default SideBar;
+export default UserSideBar;
