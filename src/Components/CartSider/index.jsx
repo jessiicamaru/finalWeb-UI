@@ -3,17 +3,22 @@ import CartItem from './CartItem';
 import { useSelector } from 'react-redux';
 import { getListTicket, getWholeState } from '@/redux/selectors';
 import { formatCurrency } from '@/utils/formatCurrency';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { InfoCircleFilled } from '@ant-design/icons';
+import clsx from 'clsx';
 
-// eslint-disable-next-line react/prop-types
-const CartSider = ({ noButton }) => {
+const CartSider = () => {
     const { departureList, returnList } = useSelector(getListTicket);
     const { state } = useSelector(getWholeState);
     const [api, contextHolder] = notification.useNotification();
     const location = useLocation();
     const path = location.pathname;
+
+    const [button, setButton] = useState(true);
+    useEffect(() => {
+        if (path == '/search/booking') setButton(false);
+    }, [path, location]);
 
     const navigate = useNavigate();
     const handlePay = () => {
@@ -105,10 +110,10 @@ const CartSider = ({ noButton }) => {
                         </div>
 
                         <Button
-                            style={{
-                                width: '100%',
-                                display: noButton ? 'none' : 'block',
-                            }}
+                            className={clsx('w-full', {
+                                '!hidden': button,
+                                '!block': !button,
+                            })}
                             type="primary"
                             onClick={() => handlePay()}
                         >

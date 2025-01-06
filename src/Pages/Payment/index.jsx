@@ -1,5 +1,5 @@
 import DefaultLayout from '@/Layouts/DefaultLayout';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, notification } from 'antd';
 
@@ -10,8 +10,29 @@ import { getListTicket } from '@/redux/selectors';
 import { useSelector } from 'react-redux';
 import axios from '@/config/axios';
 import { transactionIdGenerator } from './transactionIdGenerate';
+import { AuthContext } from '@/context/AuthProvider';
 
 const Payment = () => {
+    const { user } = useContext(AuthContext);
+
+    const [form] = Form.useForm();
+
+    const handleFillFields = () => {
+        form.setFieldsValue({
+            Name: user?.DisplayName || '',
+            ID: user?.IDNumber || '',
+            'Phone Number': user?.PhoneNumber || '',
+            Email: user?.Email || '',
+        });
+
+        setName(user.DisplayName);
+        setId(user.IDNumber);
+        setPhone(user.PhoneNumber);
+        setEmail(user.Email);
+    };
+
+    console.log(user);
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -32,6 +53,7 @@ const Payment = () => {
     }, [departureList, returnList]);
 
     const handleNameChange = (value) => {
+        console.log(value);
         setName(value.trim());
     };
     const handleIdChange = (value) => {
@@ -88,6 +110,7 @@ const Payment = () => {
 
             let response = await axios.post(import.meta.env.VITE_API_URL_V2 + '/zalopay/payment', {
                 data: {
+                    uid: user.UID,
                     name,
                     id,
                     phone,
@@ -123,7 +146,7 @@ const Payment = () => {
     return (
         <>
             {contextHolder}
-            <DefaultLayout noButton={true}>
+            <DefaultLayout>
                 <div className="bg-white w-full p-6">
                     <div>
                         <h1 className="text-2xl w-full text-center font-bold">Choose payment method</h1>
@@ -138,6 +161,7 @@ const Payment = () => {
                                 }}
                                 layout="horizontal"
                                 className="min-w-[80%]"
+                                form={form}
                             >
                                 <Form.Item
                                     label="Name"
@@ -160,7 +184,7 @@ const Payment = () => {
 
                                 <Form.Item
                                     label="Phone number"
-                                    name="phoneNumber"
+                                    name="Phone Number"
                                     rules={[
                                         {
                                             required: true,
@@ -179,7 +203,7 @@ const Payment = () => {
 
                                 <Form.Item
                                     label="ID"
-                                    name="id"
+                                    name="ID"
                                     rules={[
                                         {
                                             required: true,
@@ -198,7 +222,7 @@ const Payment = () => {
 
                                 <Form.Item
                                     label="Email"
-                                    name="email"
+                                    name="Email"
                                     rules={[
                                         {
                                             required: true,
@@ -213,6 +237,11 @@ const Payment = () => {
                                             handleEmailChange(e.target.value);
                                         }}
                                     />
+                                </Form.Item>
+                                <Form.Item className="w-full flex items-center justify-center">
+                                    <Button type="primary" onClick={handleFillFields}>
+                                        Fill all fields with your personal information?
+                                    </Button>
                                 </Form.Item>
                             </Form>
                         </div>

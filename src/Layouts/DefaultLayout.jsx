@@ -10,7 +10,7 @@ import { ShoppingCartOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
 
 // eslint-disable-next-line react/prop-types
-const DefaultLayout = ({ children, noButton = false }) => {
+const DefaultLayout = ({ children }) => {
     const adData = [
         {
             img: '1',
@@ -88,7 +88,7 @@ const DefaultLayout = ({ children, noButton = false }) => {
                     ['max-[830px]:absolute max-[830px]:right-2 max-[830px]:top-2 max-[830px]:z-10 max-[830px]:drop-shadow-md']: on,
                 })}
             >
-                <CartSider noButton={noButton} />
+                <CartSider />
             </div>
             <div
                 className={clsx('!bg-white !flex-auto ', {

@@ -10,9 +10,9 @@ import UserSideBar from '@/Components/UserSideBar';
 
 // eslint-disable-next-line react/prop-types
 const UserLayout = ({ children }) => {
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const [u, setU] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [api, contextHolder] = notification.useNotification();
 
     const [isModalOpen, setIsModalOpen] = useState(true);
@@ -48,18 +48,18 @@ const UserLayout = ({ children }) => {
     };
 
     useEffect(() => {
-        setLoading(true);
-        console.log(user);
         const fn = async () => {
             const res = await axios.get(import.meta.env.VITE_API_URL_V3 + '/get-user/?uid=' + user.uid);
             console.log(res.data);
-            if (res.data) setU(res.data.data);
-
-            setLoading(false);
+            if (res.data) {
+                setU(res.data.data);
+                setUser(res.data.data);
+                setLoading(false); // Đảm bảo luôn đặt loading về false
+            }
         };
 
         if (user.uid) fn();
-    }, [user]);
+    }, [user, setUser]);
 
     const openNotification = ({ message, description, icon }) => {
         api.info({
@@ -97,7 +97,12 @@ const UserLayout = ({ children }) => {
                         <Col span={4}>
                             <UserSideBar />
                         </Col>
-                        <Col span={20} className="p-8">
+                        <Col
+                            span={20}
+                            className={clsx('p-8', {
+                                'blur-xl': !pass,
+                            })}
+                        >
                             {children}
                         </Col>
                     </Row>

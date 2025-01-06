@@ -15,6 +15,7 @@ import AuthProvider from '@/context/AuthProvider';
 import ProtectedRoute from './ProtectRoute';
 import User from '@/Pages/User';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
+import Order from '@/Pages/Order';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AuthLayout = () => {
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
                         path: '/user/info',
                         errorElement: <ErrorPage />,
                         element: <User />,
+                    },
+                    {
+                        path: '/user/orders',
+                        errorElement: <ErrorPage />,
+                        element: <Order />,
                     },
                 ],
             },

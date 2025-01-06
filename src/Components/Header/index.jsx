@@ -53,13 +53,13 @@ const Header = () => {
 
     const { user, setUser, auth } = useContext(AuthContext);
 
-    const [userDisplay, setUserDisplay] = useState(user);
+    const [u, setU] = useState(user);
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
         setIsLoggedIn(localStorage.getItem('access_token_rt'));
-        setUserDisplay(user);
+        setU(user);
     }, [user]);
 
     const handleLogOut = () => {
@@ -120,10 +120,10 @@ const Header = () => {
                         })}
                     >
                         <a href="/user/info">
-                            <Avatar src={userDisplay.photoURL} className="mr-4">
-                                {userDisplay.photoURL ? '' : userDisplay?.displayName?.charAt(0).toUpperCase()}
+                            <Avatar src={u.PhotoURL} className="mr-4">
+                                {u.PhotoURL ? '' : u?.DisplayName?.charAt(0).toUpperCase()}
                             </Avatar>
-                            {userDisplay.displayName}
+                            {u.DisplayName}
                         </a>
                     </Menu.Item>
 

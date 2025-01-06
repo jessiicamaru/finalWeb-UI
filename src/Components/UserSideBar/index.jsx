@@ -19,7 +19,7 @@ const UserSideBar = () => {
                 <Link href="/user/info">Information</Link>
             </Menu.Item>
             <Menu.Item key="2">
-                <Link href="/user/order">Orders</Link>
+                <Link href="/user/orders">Orders</Link>
             </Menu.Item>
         </Menu>
     );
