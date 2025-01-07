@@ -6,18 +6,19 @@ export const AuthContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export default function AuthProvider({ children }) {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({ firebase: {}, db: {} });
 
     const auth = getAuth();
 
     const navigate = useNavigate();
 
-    const fn = async (uid) => {
+    const fn = async (user, uid) => {
         try {
             const res = await axios.get(import.meta.env.VITE_API_URL_V3 + '/get-user/?uid=' + uid);
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.data.UID) {
-                setUser(res.data.data);
+                setUser({ firebase: user, db: { ...res.data.data } });
+                // console.log({ firebase: user, db: { ...res.data.data } });
             }
         } catch (e) {
             console.log(e);
@@ -25,12 +26,12 @@ export default function AuthProvider({ children }) {
     };
 
     useEffect(() => {
-        const unsubcribed = auth.onIdTokenChanged((user) => {
-            console.log(user);
+        const unsubcribed = auth.onIdTokenChanged((u) => {
+            // console.log(u);
 
-            if (user?.uid) {
-                fn(user.uid);
-                localStorage.setItem('access_token_rt', user.accessToken);
+            if (u?.uid) {
+                fn(u, u.uid);
+                localStorage.setItem('access_token_rt', u.accessToken);
 
                 return;
             }
@@ -53,5 +54,6 @@ export default function AuthProvider({ children }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [auth]);
 
+    console.log('[befor return]', user);
     return <AuthContext.Provider value={{ user, setUser, auth }}>{children}</AuthContext.Provider>;
 }
