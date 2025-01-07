@@ -59,14 +59,14 @@ const Header = () => {
 
     useEffect(() => {
         setIsLoggedIn(localStorage.getItem('access_token_rt'));
-        setU(user);
+        setU(user.db);
     }, [user]);
 
     const handleLogOut = () => {
         setUser({});
         localStorage.removeItem('access_token_rt');
         auth.signOut();
-        navigate('/');
+        navigate('/login');
     };
 
     return (

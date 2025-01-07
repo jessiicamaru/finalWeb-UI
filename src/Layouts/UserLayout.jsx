@@ -37,6 +37,7 @@ const UserLayout = ({ children }) => {
     const handleOk = () => {
         if (!u.Password) {
             setIsModalOpen(false);
+            setPass(true);
             return;
         }
         if (data.passwordModal == u.Password) {
@@ -55,7 +56,7 @@ const UserLayout = ({ children }) => {
     };
 
     useEffect(() => {
-        if (user.UID) setU(user);
+        if (user.db.UID) setU(user.db);
     }, [user]);
 
     const openNotification = ({ message, description, icon }) => {
@@ -78,6 +79,11 @@ const UserLayout = ({ children }) => {
                     placeholder="At least 6 characters"
                     onChange={(e) => {
                         handleOnchange('passwordModal', e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            handleOk();
+                        }
                     }}
                 />
             </Modal>
