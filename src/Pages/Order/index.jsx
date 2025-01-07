@@ -12,17 +12,32 @@ const Order = () => {
     const { user } = useContext(AuthContext);
     const [u, setU] = useState({});
     const [api, contextHolder] = notification.useNotification();
+    const [list, setList] = useState([]);
 
     const [option, setOption] = useState('all');
 
     useEffect(() => {
         console.log(user);
-        setU(user);
+        if (user.UID) setU(user);
     }, [user]);
 
     const handleChange = (value) => {
         setOption(value);
     };
+
+    useEffect(() => {
+        //http://localhost:4000/api/v3/get-order/?uid=Xzcnka6u4CVjvSfCqAUCmGQuhst2
+        const fn = async () => {
+            const res = await axios.get(import.meta.env.VITE_API_URL_V3 + `/get-order/?uid=${u.UID}`);
+
+            if (res.data) {
+                console.log(res.data.data);
+                setList(res.data.data);
+            }
+        };
+
+        if (u?.UID) fn();
+    }, [u.UID]);
 
     return (
         <>

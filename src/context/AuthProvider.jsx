@@ -29,7 +29,6 @@ export default function AuthProvider({ children }) {
             console.log(user);
 
             if (user?.uid) {
-                setUser(user);
                 fn(user.uid);
                 localStorage.setItem('access_token_rt', user.accessToken);
 

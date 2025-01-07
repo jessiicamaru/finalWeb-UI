@@ -3,14 +3,13 @@ import NonCartSiderLayout from '@/Layouts/NonCartSiderLayout';
 import { Col, Input, Modal, notification, Row } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { InfoCircleFilled } from '@ant-design/icons';
-import axios from '@/config/axios';
 import clsx from 'clsx';
 import Loading from '@/Components/Loading';
 import UserSideBar from '@/Components/UserSideBar';
 
 // eslint-disable-next-line react/prop-types
 const UserLayout = ({ children }) => {
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [u, setU] = useState({});
     const [loading, setLoading] = useState(true);
     const [api, contextHolder] = notification.useNotification();
@@ -25,6 +24,14 @@ const UserLayout = ({ children }) => {
         id: '',
         phone: '',
         passwordModal: '',
+    });
+
+    useEffect(() => {
+        const TId = setTimeout(() => {
+            setLoading(false);
+        }, 500);
+
+        return () => clearTimeout(TId);
     });
 
     const handleOk = () => {
@@ -48,18 +55,8 @@ const UserLayout = ({ children }) => {
     };
 
     useEffect(() => {
-        const fn = async () => {
-            const res = await axios.get(import.meta.env.VITE_API_URL_V3 + '/get-user/?uid=' + user.uid);
-            console.log(res.data);
-            if (res.data) {
-                setU(res.data.data);
-                setUser(res.data.data);
-                setLoading(false); // Đảm bảo luôn đặt loading về false
-            }
-        };
-
-        if (user.uid) fn();
-    }, [user, setUser]);
+        if (user.UID) setU(user);
+    }, [user]);
 
     const openNotification = ({ message, description, icon }) => {
         api.info({
